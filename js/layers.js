@@ -53,6 +53,6 @@ addLayer("u", {
                 return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
+        }, // TODO: Add upgrade 21 > upgrade essence
     },
 })
