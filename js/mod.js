@@ -14,13 +14,13 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.1",
-	name: "Single-layer Update",
+	name: "Upgrade Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.1</h3><br>
 		- Dealt with mod.js.<br>
-		- Added Upgrades.`
+		- Added Upgrades.<br>`
 
 let winText = `Congratulations! You have reached the end of the 1-layer version. 4 more layers await in future updates...`
 
