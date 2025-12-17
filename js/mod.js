@@ -1,6 +1,7 @@
 let modInfo = {
-	name: "The ??? Tree",
-	author: "nobody",
+	name: "The Puritree",
+	id: "puritree"
+	author: "PLMMJ",
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
 
@@ -12,16 +13,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1",
+	name: "Single-layer Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	<h3>v0.1</h3><br>
+		- Laid the groundwork.<br>
+		- Added the first layer, Upgrades.`
 
-let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
+let winText = `Congratulations! You have reached the end, for now... 1/5 layers in the intended version are implemented.`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
