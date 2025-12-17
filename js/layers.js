@@ -15,6 +15,7 @@ addLayer("u", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -28,7 +29,7 @@ addLayer("u", {
     upgrades: {
         11: {
             title: "Upgrade Boost",
-            description: "Upgrade points boost point generation.",
+            description: "Upgrade points multiply point generation.",
             cost: new Decimal(1),
             effect() {
                 return player[this.layer].points.add(1).pow(0.4)
@@ -37,10 +38,19 @@ addLayer("u", {
         },
         12: {
             title: "Point Boost",
-            description: "Points boost their own generation.",
+            description: "Points multiply their own generation.",
             cost: new Decimal(5),
             effect() {
                 return player.points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "UP Up",
+            description: "Upgrade points multiply their own generation.",
+            cost: new Decimal(10),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
