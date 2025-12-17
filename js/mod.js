@@ -1,6 +1,6 @@
 let modInfo = {
 	name: "The Puritree",
-	id: "puritree"
+	id: "puritree",
 	author: "PLMMJ",
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
@@ -19,10 +19,10 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.1</h3><br>
-		- Laid the groundwork.<br>
-		- Added the first layer, Upgrades.`
+		- Dealt with mod.js.<br>
+		- Added Upgrades.`
 
-let winText = `Congratulations! You have reached the end, for now... 1/5 layers in the intended version are implemented.`
+let winText = `Congratulations! You have reached the end of the 1-layer version. 4 more layers await in future updates...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
