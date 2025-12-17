@@ -31,7 +31,16 @@ addLayer("u", {
             description: "Upgrade points boost point generation.",
             cost: new Decimal(1),
             effect() {
-                return player[this.layer].points.add(1).pow(0.25)
+                return player[this.layer].points.add(1).pow(0.4)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Point Boost",
+            description: "Points boost their own generation.",
+            cost: new Decimal(5),
+            effect() {
+                return player.points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
