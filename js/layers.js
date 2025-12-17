@@ -24,5 +24,16 @@ addLayer("u", {
     hotkeys: [
         {key: "u", description: "U: Reset for upgrade points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true}
+    layerShown(){return true},
+    upgrades: {
+        11: {
+            title: "Upgrade Boost",
+            description: "Upgrade points boost point generation.",
+            cost: new Decimal(1),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.25)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+    },
 })
