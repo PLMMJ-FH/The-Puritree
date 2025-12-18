@@ -5,6 +5,9 @@ addLayer("u", {
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
+		best: new Decimal(0),
+		total: new Decimal(0),
+		essence: new Decimal(0),
     }},
     color: "#CFCFFF",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
@@ -13,6 +16,21 @@ addLayer("u", {
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
+	effBase() { // will be used to calculate buffs to the rate of UE gain
+		let base = new Decimal(2);
+		return base;
+	},
+	effect() { // calculates UE gain
+        if (!hasUpgrade('u', 21)) return new Decimal(0);
+        let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
+        return eff;
+    },
+	effectDescription() { // text for UE gain
+		return "which are generating "+format(tmp.u.effect)+" Upgrade Essence per second."
+    }, 
+    update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
+			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
+    },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
@@ -56,9 +74,9 @@ addLayer("u", {
         },
         21: {
             title: "I swear this isn't a prestige reskin",
-            description: "Does nothing for now.",
-            cost: new Decimal(40),
+            description: "Allows generation of upgrade power.",
+            cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
-        },// TODO: Add upgrade essence
+        },
     },
 })
