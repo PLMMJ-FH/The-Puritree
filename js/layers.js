@@ -94,9 +94,7 @@ addLayer("u", {
         22: {
             title: "Don't you mean generator power?",
             description: "Upgrade essence multiplies point generation.",
-            cost: new Decimal(25000),
-			currencyDisplayName: "upgrade essence",
-            currencyInternalName: essence,
+            cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
                 return player.u.essence.add(1).pow(0.1)
@@ -106,9 +104,7 @@ addLayer("u", {
         23: {
             title: "UE ue?",
             description: "Upgrade essence adds to its own generation.",
-            cost: new Decimal(100000),
-			currencyDisplayName: "upgrade essence",
-            currencyInternalName: essence,
+            cost: new Decimal(100),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
                 return player.u.essence.add(1).pow(0.05)
