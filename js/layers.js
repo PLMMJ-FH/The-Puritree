@@ -17,7 +17,7 @@ addLayer("u", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
 	effBase() { // used to calculate buffs to the rate of UE gain
-		let base = new Decimal(1);
+		let base = new Decimal(1.25);
 		return base;
 	},
 	effect() { // calculates UE gain
