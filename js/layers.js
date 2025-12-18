@@ -50,7 +50,7 @@ addLayer("u", {
             description: "Upgrade points multiply point generation.",
             cost: new Decimal(1),
             effect() {
-                return player[this.layer].points.add(1).pow(0.4)
+                return player[this.layer].points.add(1).pow(0.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
