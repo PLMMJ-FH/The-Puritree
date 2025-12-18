@@ -22,7 +22,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Dealt with mod.js.<br>
 		- Added Upgrades.<br>`
 
-let winText = `Congratulations! You have reached the end of the 1-layer version. 4 more layers await in future updates...`
+let winText = `Congratulations! You have reached the end of the 1-layer version. 7 more layers await in future updates...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
