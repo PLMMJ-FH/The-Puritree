@@ -16,8 +16,9 @@ addLayer("u", {
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
-	effBase() { // will be used to calculate buffs to the rate of UE gain
+	effBase() { // used to calculate buffs to the rate of UE gain
 		let base = new Decimal(2);
+        if (hasUpgrade("u", 23)) base = base.plus(upgradeEffect("u", 23));
 		return base;
 	},
 	effect() { // calculates UE gain
@@ -50,7 +51,6 @@ addLayer("u", {
 			function() {return 'Your best upgrade points is ' + formatWhole(player.u.best) + '<br>You have made a total of '+formatWhole(player.u.total)+" upgrade points."},
 				{}],
 		"blank",
-		"blank",
         "upgrades"],
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
@@ -77,7 +77,7 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         13: {
-            title: "UP Up!",
+            title: "UP up!",
             description: "Upgrade points multiply their own generation.",
             cost: new Decimal(10),
             effect() {
@@ -90,6 +90,30 @@ addLayer("u", {
             description: "Allows generation of upgrade essence.",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
+        },
+        22: {
+            title: "Don't you mean generator power?",
+            description: "Upgrade essence multiplies point generation.",
+            cost: new Decimal(25000),
+			currencyDisplayName: "upgrade essence",
+            currencyInternalName: "essence",
+            unlocked() { return hasUpgrade("u", 21) },
+            effect() {
+                return player.u.essence.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        23: {
+            title: "UE ue?",
+            description: "Upgrade essence adds to its own generation.",
+            cost: new Decimal(100000),
+			currencyDisplayName: "upgrade essence",
+            currencyInternalName: "essence",
+            unlocked() { return hasUpgrade("u", 21) },
+            effect() {
+                return player[this.layer].points.add(1).pow(0.05)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 })
