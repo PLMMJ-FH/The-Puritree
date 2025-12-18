@@ -46,13 +46,19 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         13: {
-            title: "UP Up",
+            title: "UP Up!",
             description: "Upgrade points multiply their own generation.",
             cost: new Decimal(10),
             effect() {
                 return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        }, // TODO: Add upgrade 21 > upgrade essence
+        },
+        21: {
+            title: "I swear this isn't a prestige reskin",
+            description: "Does nothing for now.",
+            cost: new Decimal(40),
+            unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
+        },// TODO: Add upgrade essence
     },
 })
