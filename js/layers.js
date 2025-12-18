@@ -26,7 +26,7 @@ addLayer("u", {
         return eff;
     },
 	effectDescription() { // text for UE gain
-		return "which are generating "+format(tmp.u.effect)+" Upgrade Essence per second."
+		return "which are generating "+format(tmp.u.effect)+" upgrade essence per second."
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
 			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
@@ -39,6 +39,19 @@ addLayer("u", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
+	tabFormat: ["main-display",
+		"prestige-button",
+		"blank",
+		["display-text",
+			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
+				{}],
+		"blank",
+		["display-text",
+			function() {return 'Your best upgrade points is ' + formatWhole(player.u.best) + '<br>You have made a total of '+formatWhole(player.u.total)+" upgrade points."},
+				{}],
+		"blank",
+		"blank",
+        "upgrades"],
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "u", description: "U: Reset for upgrade points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -74,7 +87,7 @@ addLayer("u", {
         },
         21: {
             title: "I swear this isn't a prestige reskin",
-            description: "Allows generation of upgrade power.",
+            description: "Allows generation of upgrade essence.",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
         },
