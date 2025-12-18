@@ -18,7 +18,6 @@ addLayer("u", {
     exponent: 0.5, // Prestige currency exponent
 	effBase() { // used to calculate buffs to the rate of UE gain
 		let base = new Decimal(1);
-        if (hasUpgrade("u", 23)) base = base.plus(upgradeEffect("u", 23));
 		return base;
 	},
 	effect() { // calculates UE gain
@@ -35,6 +34,7 @@ addLayer("u", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
+        if (hasUpgrade("u", 23)) mult = mult.times(upgradeEffect("u", 23))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -102,12 +102,12 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         23: {
-            title: "UE ue?",
-            description: "Upgrade essence adds to its own generation.",
+            title: "UP ue?",
+            description: "Upgrade essence multiplies upgrade point generation.",
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
-                return player.u.essence.add(1).log10.add(1)
+                return player.u.essence.add(1).pow(0.01)
             },
             effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
         },
