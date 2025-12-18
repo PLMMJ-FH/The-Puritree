@@ -89,7 +89,7 @@ addLayer("u", {
             title: "I swear this isn't a prestige reskin",
             description: "Allows generation of upgrade essence.",
             cost: new Decimal(25),
-            unlocked() { return hasUpgrade("u", 11)&&hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
+            unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
         },
         22: {
             title: "Don't you mean generator power?",
