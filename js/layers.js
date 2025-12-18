@@ -88,7 +88,7 @@ addLayer("u", {
         21: {
             title: "I swear this isn't a prestige reskin",
             description: "Allows generation of upgrade essence.",
-            cost: new Decimal(25),
+            cost: new Decimal(20),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
         },
         22: {
