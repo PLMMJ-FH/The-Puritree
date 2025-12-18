@@ -97,7 +97,7 @@ addLayer("u", {
             cost: new Decimal(25000),
 			currencyDisplayName: "upgrade essence",
             currencyInternalName: "essence",
-            unlocked() { return hasUpgrade("u", 21) },
+            unlocked() { return hasUpgrade("u", 13)&&hasUpgrade("u", 21) },
             effect() {
                 return player.u.essence.add(1).pow(0.1)
             },
@@ -109,7 +109,7 @@ addLayer("u", {
             cost: new Decimal(100000),
 			currencyDisplayName: "upgrade essence",
             currencyInternalName: "essence",
-            unlocked() { return hasUpgrade("u", 21) },
+            unlocked() { return hasUpgrade("u", 13)&&hasUpgrade("u", 21) },
             effect() {
                 return player[this.layer].points.add(1).pow(0.05)
             },
