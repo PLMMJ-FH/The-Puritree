@@ -17,7 +17,7 @@ addLayer("u", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
 	effBase() { // used to calculate buffs to the rate of UE gain
-		let base = new Decimal(1.50);
+		let base = new Decimal(1.5);
 		return base;
 	},
 	effect() { // calculates UE gain
@@ -104,7 +104,7 @@ addLayer("u", {
         23: {
             title: "UP ue?",
             description: "Upgrade essence multiplies upgrade point generation.",
-            cost: new Decimal(100),
+            cost: new Decimal(50),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
                 return player.u.essence.add(1).pow(0.01)
