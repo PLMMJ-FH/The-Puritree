@@ -23,7 +23,7 @@ addLayer("u", {
 	effect() { // calculates UE gain
         if (!hasUpgrade('u', 21)) return new Decimal(0);
         let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
-        if (player.u.essence.gte(1e12)) eff = eff.pow(1/3)
+        if (player.u.essence.gte(e1e9)) eff = eff.log10()
         return eff;
     },
 	effectDescription() { // text for UE gain
