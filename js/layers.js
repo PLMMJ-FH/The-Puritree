@@ -17,7 +17,7 @@ addLayer("u", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
 	effBase() { // used to calculate buffs to the rate of UE gain
-		let base = new Decimal(1.5);
+		let base = new Decimal(1.25);
 		return base;
 	},
 	effect() { // calculates UE gain
@@ -68,7 +68,8 @@ addLayer("u", {
             description: "Upgrade points multiply point generation.",
             cost: new Decimal(1),
             effect() {
-                return player[this.layer].points.add(1).pow(0.5)
+                let eff_u_11 = player[this.layer].points.add(1).pow(0.5)
+                return eff_u_11
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -77,7 +78,8 @@ addLayer("u", {
             description: "Points multiply their own generation.",
             cost: new Decimal(5),
             effect() {
-                return player.points.add(1).pow(0.1)
+                let eff_u_12 = player.points.add(1).pow(0.1)
+                return eff_u_12
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -86,7 +88,8 @@ addLayer("u", {
             description: "Upgrade points multiply their own generation.",
             cost: new Decimal(10),
             effect() {
-                return player[this.layer].points.add(1).pow(0.1)
+                let eff_u_13 = player[this.layer].points.add(1).pow(0.1)
+                return eff_u_13
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -102,7 +105,8 @@ addLayer("u", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
-                return player.u.essence.add(1).pow(0.1)
+                let eff_u_22 = player.u.essence.add(1).pow(0.1)
+                return eff_u_22
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -112,7 +116,8 @@ addLayer("u", {
             cost: new Decimal(50),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
-                return player.u.essence.add(1).pow(0.025)
+                let eff_u_23 = player.u.essence.add(1).log10().pow(0.1)
+                return eff_u_23
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
