@@ -111,9 +111,9 @@ addLayer("u", {
             cost: new Decimal(50),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
-                return player.u.essence.add(1).pow(0.01)
+                return player.u.essence.add(1).pow(0.025)
             },
-            effectDisplay() { return "+"+format(upgradeEffect(this.layer, this.id)) },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 })
