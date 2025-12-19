@@ -153,6 +153,18 @@ addLayer("m", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
+	tabFormat: ["main-display",
+		"prestige-button",
+		["display-text",
+			function() {return 'You have ' + format(player.points) + ' points.'},
+				{}],
+		"blank",
+		["display-text",
+			function() {return 'Your best milestone progress is ' + formatWhole(player.m.best) + '.<br>You have made a total of '+formatWhole(player.m.total)+" milestone progress."},
+				{}],
+		"blank",
+        "milestones"],
+
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "m", description: "M: Reset for milestone progress", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
