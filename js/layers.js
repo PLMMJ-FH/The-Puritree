@@ -194,9 +194,9 @@ addLayer("a", {
 		    tooltip: "Complete the first two rows of upgrades. Reward: Gain the ability to unlock row 2 layers.",
         },
         14: {
-            name: "Point Hog",
-		    done() { return player.u.points.gte(1e16) },
-		    tooltip: "Get 1e16 points.",
+            name: "Essence Slowdown",
+		    done() { return player.u.essence.gte(1e1000000000000) },
+		    tooltip: "Hit the Upgrade Essence softcap.",
         },
         15: {
             name: "Tinkerer",
