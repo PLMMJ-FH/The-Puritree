@@ -49,7 +49,7 @@ addLayer("u", {
 		"blank",
 		"blank",
 		["display-text",
-			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
+			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades. (Softcap: e1e9)'},
 				{}],
 		"blank",
 		["display-text",
