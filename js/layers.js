@@ -23,7 +23,7 @@ addLayer("u", {
 	effect() { // calculates UE gain
         if (!hasUpgrade('u', 21)) return new Decimal(0);
         let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
-        if (player.u.essence.gte(1e1000000000000)) eff = eff.log10().add(1)
+        if (player.u.essence.gte(1000000000000000)) eff = eff.log10().add(1)
         return eff;
     },
 	effectDescription() { // text for UE gain
@@ -40,7 +40,9 @@ addLayer("u", {
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
+        exp = new Decimal(1)
+        if (player.u.points.gte(1e1000000000000)) exp = exp.pow(1/3)
+        return exp
     },
 	tabFormat: ["main-display",
 		"prestige-button",
@@ -99,13 +101,13 @@ addLayer("u", {
             title: "I swear this isn't a prestige reskin",
             description: "Allows generation of upgrade essence.",
             cost: new Decimal(5),
-            unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
+            unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
         },
         22: {
             title: "Don't you mean generator power?",
             description: "Upgrade essence multiplies point generation.",
             cost: new Decimal(25),
-            unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
+            unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
                 let eff_u_22 = player.u.essence.add(1).log10().add(1)
                 return eff_u_22
@@ -116,7 +118,7 @@ addLayer("u", {
             title: "UP ue?",
             description: "Upgrade essence multiplies upgrade point generation.",
             cost: new Decimal(50),
-            unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
+            unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
                 let eff_u_23 = player.u.essence.add(1).log10().pow(0.5).add(1)
                 return eff_u_23
@@ -201,8 +203,33 @@ addLayer("a", {
         },
         15: {
             name: "Tinkerer",
-		    done() { return hasAchievement('a', 13)&&hasAchievement('a', 14) },
+		    done() { return hasAchievement('a', 13) && hasAchievement('a', 14) },
 		    tooltip: "Achieve the other row 1 achievements. Reward: Gain 10% more points.",
+        },
+        21: {
+            name: "The second one is not so free.",
+		    done() { return player.m.points.gte(1) },
+		    tooltip: "Do your first row 2 reset.",
+        },
+        22: {
+            name: "How many softcaps can there be?!",
+		    done() { return player.u.essence.gte(1000000000000000) },
+		    tooltip: "Hit the Upgrade Points softcap.",
+        },
+        23: {
+            name: "Evolution",
+		    done() { return player.u.upgrades.length>=10 },
+		    tooltip: "Have 10 upgrades at once.",
+        },
+        14: {
+            name: "Point Hog",
+		    done() { return player.u.essence.gte(1e32) },
+		    tooltip: "Reach 1e32 points.",
+        },
+        25: {
+            name: "Mechanic",
+		    done() { return hasAchievement('a', 21) && hasAchievement('a', 22) && hasAchievement('a', 23) && hasAchievement('a', 24) },
+		    tooltip: "Achieve the other row 2 achievements. Reward: Gain 10% more points.",
         },
     },
 	tabFormat: [
