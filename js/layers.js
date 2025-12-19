@@ -206,7 +206,7 @@ addLayer("a", {
     },
 	tabFormat: [
 		"blank", 
-		["display-text", function() { return "Relics: "+player.a.achievements.length+"/"+(Object.keys(tmp.a.achievements).length-2) }], 
+		["display-text", function() { return "Achievements: "+player.a.achievements.length+"/"+(Object.keys(tmp.a.achievements).length-2) }], 
 		"blank", "blank",
 		"relics",
 	],
