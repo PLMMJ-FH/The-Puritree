@@ -23,11 +23,11 @@ addLayer("u", {
 	effect() { // calculates UE gain
         if (!hasUpgrade('u', 21)) return new Decimal(0);
         let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
-        if (player.u.essence.gte(1e1000000000)) eff = eff.log10().add(1)
+        if (player.u.essence.gte(1e1000000000000)) eff = eff.log10().add(1)
         return eff;
     },
 	effectDescription() { // text for UE gain
-		return "which are generating "+format(tmp.u.effect)+" upgrade essence per second."
+		return "which are generating "+format(tmp.u.effect)+" upgrade essence per second. (Softcap at e1e12 UE.)"
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
 			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
@@ -49,7 +49,7 @@ addLayer("u", {
 		"blank",
 		"blank",
 		["display-text",
-			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades. (Softcap at e1e9 UE)'},
+			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
 				{}],
 		"blank",
 		["display-text",
