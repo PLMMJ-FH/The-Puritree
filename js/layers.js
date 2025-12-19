@@ -27,7 +27,7 @@ addLayer("u", {
         return eff;
     },
 	effectDescription() { // text for UE gain
-		return "which are generating "+format(tmp.u.effect)+" upgrade essence per second. (Softcap at e1e12 UE.)"
+		return "which are generating "+format(tmp.u.effect)+" upgrade essence per second."
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
 			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
