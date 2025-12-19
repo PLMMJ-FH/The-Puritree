@@ -106,7 +106,7 @@ addLayer("u", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
-                let eff_u_22 = player.u.essence.add(1).log10()
+                let eff_u_22 = player.u.essence.add(1).log10().add(1)
                 return eff_u_22
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -200,7 +200,7 @@ addLayer("a", {
         },
         15: {
             name: "Tinkerer",
-		    done() { return hasAchievement('a', 11)&&hasAchievement('a', 12)&&hasAchievement('a', 13)&&hasAchievement('a', 14) },
+		    done() { return hasAchievement('a', 13)&&hasAchievement('a', 14) },
 		    tooltip: "Achieve the other row 1 achievements. Reward: Gain 10% more points.",
         },
     },
