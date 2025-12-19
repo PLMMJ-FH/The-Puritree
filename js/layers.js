@@ -16,7 +16,7 @@ addLayer("u", {
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
-	effBase() { // used to calculate buffs to the rate of UE gain
+	effBase() { // used to calculate buffs to the exponent of UE gain
 		let base = new Decimal(1.25);
 		return base;
 	},
@@ -36,6 +36,7 @@ addLayer("u", {
         mult = new Decimal(1)
         if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
         if (hasUpgrade("u", 23)) mult = mult.times(upgradeEffect("u", 23))
+        if (hasMilestone('m', 0)) mult = mult.times(player.m.best)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -159,7 +160,7 @@ addLayer("m", {
 		0: {
 			requirementDescription: "1 Milestone Progress",
 			done() { return player.m.best.gte(1) },
-			effectDescription: "Doesn't do anything right now.",
+			effectDescription: "Best milestone progress multiplies UP gain.",
 		},
     },
 })
