@@ -23,7 +23,8 @@ addLayer("u", {
 	effect() { // calculates UE gain
         if (!hasUpgrade('u', 21)) return new Decimal(0);
         let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
-        if (player.u.essence.gte(1000000000000000)) eff = eff.log10().add(1)
+        if (player.u.essence.gte(1e1000000000000)) eff = eff.log10().add(1)
+        if (hasUpgrade('u', 32)) eff = eff.pow(2)
         return eff;
     },
 	effectDescription() { // text for UE gain
@@ -36,12 +37,13 @@ addLayer("u", {
         mult = new Decimal(1)
         if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
         if (hasUpgrade("u", 23)) mult = mult.times(upgradeEffect("u", 23))
-        if (hasMilestone('m', 0)) mult = mult.times(player.m.best).add(1)
+        if ((hasMilestone('m', 0))&&(!hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1)
+        if ((hasMilestone('m', 0))&&(hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).times(upgradeEffect('u', 31))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         exp = new Decimal(1)
-        if (player.u.points.gte(1e1000000000000)) exp = exp.pow(1/3)
+        if (player.u.points.gte(1000000000000000)) exp = exp.pow(1/3)
         return exp
     },
 	tabFormat: ["main-display",
@@ -125,6 +127,36 @@ addLayer("u", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
+        31: {
+            title: "Fueling Essence",
+            description: "Upgrade essence boosts the 1st milestone effect.",
+            cost: new Decimal(1000000),
+            unlocked() { return hasMilestone('m', 1) },
+            effect() {
+                let eff_u_31 = player.u.essence.add(1).log10().pow(0.25).add(1)
+                return eff_u_31
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        32: {
+            title: "Softcap Assist",
+            description: "Square upgrade essence gain.",
+            cost: new Decimal(1e1000000000000),
+			currencyDisplayName: "upgrade essence",
+            currencyInternalName: player.u.essence,
+            unlocked() { return hasMilestone('m', 1) },
+        },
+        33: {
+            title: "Who needs UE?",
+            description: "<b>UP up!</b> is stronger based on your milestone progress.",
+            cost: new Decimal(10000000000000000),
+            unlocked() { return hasMilestone('m', 1) },
+            effect() {
+                let eff_u_33 = player.m.points.add(1).pow(0.5).add(1)
+                return eff_u_33
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
     },
 })
 
@@ -175,6 +207,11 @@ addLayer("m", {
 			requirementDescription: "1 Milestone Progress",
 			done() { return player.m.best.gte(1) },
 			effectDescription: "Best milestone progress multiplies UP gain.",
+		},
+		1: {
+			requirementDescription: "10 Milestone Progress",
+			done() { return player.m.best.gte(10) },
+			effectDescription: "Unlock 3 extra upgrades.",
 		},
     },
 })
