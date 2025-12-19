@@ -116,7 +116,7 @@ addLayer("u", {
             cost: new Decimal(50),
             unlocked() { return hasUpgrade("u", 12)&&hasUpgrade("u", 13) },
             effect() {
-                let eff_u_23 = player.u.essence.add(1).log10().pow(0.1)
+                let eff_u_23 = player.u.essence.add(1).log10().pow(0.5).add(1)
                 return eff_u_23
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
