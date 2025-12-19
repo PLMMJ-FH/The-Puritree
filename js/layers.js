@@ -69,7 +69,7 @@ addLayer("u", {
             cost: new Decimal(1),
             effect() {
                 let eff_u_11 = player[this.layer].points.add(1).pow(0.5)
-                if (eff_u_11.gte(1e4)) eff = eff.log10()
+                if (eff_u_11.gte(1e4)) eff_u_11 = eff_u_11.log10()
                 return eff_u_11
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
