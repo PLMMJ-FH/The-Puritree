@@ -154,7 +154,7 @@ addLayer("m", {
     hotkeys: [
         {key: "m", description: "M: Reset for milestone progress", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return hasUpgrade('u', 23)},
+    layerShown(){return hasAchievement('a', 13)},
     milestones: {
 		0: {
 			requirementDescription: "1 Milestone Progress",
@@ -162,4 +162,52 @@ addLayer("m", {
 			effectDescription: "Doesn't do anything right now.",
 		},
     },
+})
+
+addLayer("a", {
+    symbol: "A", // This appears on the layer's node. Default is the id with the first letter capitalized
+    startData() { return {
+        unlocked: true,
+    }},
+    color: "#FFFF00",
+    row: "side", // Row the layer is in on the tree (0 is the first row)
+    layerShown(){return true},
+    tooltip() { // Optional, tooltip displays when the layer is locked
+        return ("Achievements")
+    },
+    achievements: {
+        rows: 8,
+        cols: 5,
+        11: {
+            name: "The first one is always free.",
+		    done() { return player.w.points.gte(1) },
+		    tooltip: "Do your first row 1 reset.",
+        },
+        12: {
+            name: "The puns have just begun!",
+		    done() { return player.u.upgrades.length>=3 },
+		    tooltip: "Complete the first row of upgrades.",
+        },
+        13: {
+            name: "A Taste of Power",
+		    done() { return player.u.upgrades.length>=6 },
+		    tooltip: "Complete the first two rows of upgrades. Reward: Gain the ability to unlock row 2 layers.",
+        },
+        14: {
+            name: "Point Hog",
+		    done() { return player.w.points.gte(1) },
+		    tooltip: "Get 1e16 points.",
+        },
+        15: {
+            name: "Tinkerer",
+		    done() { return hasAchievement('a', 11)&&hasAchievement('a', 12)&&hasAchievement('a', 13)&&hasAchievement('a', 14) },
+		    tooltip: "Achieve the other row 1 achievements. Reward: Gain 10% more points.",
+        },
+    },
+	tabFormat: [
+		"blank", 
+		["display-text", function() { return "Relics: "+player.a.achievements.length+"/"+(Object.keys(tmp.a.achievements).length-2) }], 
+		"blank", "blank",
+		"relics",
+	],
 })

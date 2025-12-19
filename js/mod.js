@@ -21,11 +21,12 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.2</h3><br>
 		- Played whack-a-mole with inflation.<br>
 		- Added Milestones.<br>
+		- Added Achievements.<br>
 	<h3>v0.1</h3><br>
 		- Dealt with mod.js.<br>
 		- Added Upgrades.<br>`
 
-let winText = `Congratulations! You have reached the end of the 1-layer version. 7 more layers await in future updates...`
+let winText = `Congratulations! You have reached the end of the 3-layer version. 6 more layers await in future updates...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -49,6 +50,7 @@ function getPointGen() {
 	if (hasUpgrade('u', 11)) gain = gain.times(upgradeEffect('u', 11))
 	if (hasUpgrade('u', 12)) gain = gain.times(upgradeEffect('u', 12))
 	if (hasUpgrade('u', 22)) gain = gain.times(upgradeEffect('u', 22))
+	if (hasAchievement('a', 15)) gain = gain.times(1.1)
 	return gain
 }
 
