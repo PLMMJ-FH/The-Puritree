@@ -176,7 +176,7 @@ addLayer("a", {
         return ("Achievements")
     },
     achievements: {
-        rows: 8,
+        rows: 1,
         cols: 5,
         11: {
             name: "The first one is always free.",
