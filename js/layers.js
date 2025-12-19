@@ -48,7 +48,7 @@ addLayer("u", {
 				{}],
 		"blank",
 		["display-text",
-			function() {return 'Your best upgrade points is ' + formatWhole(player.u.best) + '<br>You have made a total of '+formatWhole(player.u.total)+" upgrade points."},
+			function() {return 'Your best upgrade points is ' + formatWhole(player.u.best) + '.<br>You have made a total of '+formatWhole(player.u.total)+" upgrade points."},
 				{}],
 		"blank",
         "upgrades"],
