@@ -23,7 +23,7 @@ addLayer("u", {
 	effect() { // calculates UE gain
         if (!hasUpgrade('u', 21)) return new Decimal(0);
         let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
-        if (player.u.essence.gte(e1000000000)) eff = eff.pow(10)
+        if (player.u.essence.gte(e1000000000)) eff = eff.pow(0.1)
         return eff;
     },
 	effectDescription() { // text for UE gain
@@ -49,7 +49,7 @@ addLayer("u", {
 		"blank",
 		"blank",
 		["display-text",
-			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades. (Softcap: e1e9)'},
+			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
 				{}],
 		"blank",
 		["display-text",
