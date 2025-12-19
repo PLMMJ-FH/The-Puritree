@@ -180,7 +180,7 @@ addLayer("a", {
         cols: 5,
         11: {
             name: "The first one is always free.",
-		    done() { return player.w.points.gte(1) },
+		    done() { return player.u.points.gte(1) },
 		    tooltip: "Do your first row 1 reset.",
         },
         12: {
@@ -195,7 +195,7 @@ addLayer("a", {
         },
         14: {
             name: "Point Hog",
-		    done() { return player.w.points.gte(1) },
+		    done() { return player.u.points.gte(1e16) },
 		    tooltip: "Get 1e16 points.",
         },
         15: {
