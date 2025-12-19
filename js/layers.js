@@ -36,7 +36,7 @@ addLayer("u", {
         mult = new Decimal(1)
         if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
         if (hasUpgrade("u", 23)) mult = mult.times(upgradeEffect("u", 23))
-        if (hasMilestone('m', 0)) mult = mult.times(player.m.best)
+        if (hasMilestone('m', 0)) mult = mult.times(player.m.best).add(1)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
