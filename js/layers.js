@@ -221,7 +221,7 @@ addLayer("a", {
 		    done() { return player.u.upgrades.length>=10 },
 		    tooltip: "Have 10 upgrades at once.",
         },
-        14: {
+        24: {
             name: "Point Hog",
 		    done() { return player.u.essence.gte(1e32) },
 		    tooltip: "Reach 1e32 points.",
