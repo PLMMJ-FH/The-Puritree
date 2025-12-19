@@ -208,6 +208,6 @@ addLayer("a", {
 		"blank", 
 		["display-text", function() { return "Achievements: "+player.a.achievements.length+"/"+(Object.keys(tmp.a.achievements).length-2) }], 
 		"blank", "blank",
-		"relics",
+		"achievements",
 	],
 })
