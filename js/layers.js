@@ -260,7 +260,7 @@ addLayer("a", {
         },
         22: {
             name: "How many softcaps can there be?!",
-		    done() { return player.u.essence.gte(1000000000000000) },
+		    done() { return player.u.points.gte(1000000000000000) },
 		    tooltip: "Hit the Upgrade Points softcap.",
         },
         23: {
