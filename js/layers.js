@@ -284,7 +284,7 @@ addLayer("b", {
                 eff = eff.mul(x).pow(2)
                 return eff
             },
-            display() { return "Multiplies point gain." },
+            display() { return 'Multiplies point gain.' },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
