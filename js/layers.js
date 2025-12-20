@@ -74,7 +74,7 @@ addLayer("u", {
             cost: new Decimal(1),
             effect() {
                 let eff_u_11 = player[this.layer].points.add(1).pow(0.5)
-                if (eff_u_11.gte(1500)) eff_u_11 = eff_u_11.sqrt()
+                if (eff_u_11.gte(1500)) eff_u_11 = eff_u_11.pow(0.5)
                 if (hasUpgrade('u', 32)) eff_u_11 = eff_u_11.pow(2)
                 return eff_u_11
             },
@@ -152,7 +152,7 @@ addLayer("u", {
             cost: new Decimal(1000000000000000),
             unlocked() { return hasMilestone('m', 1) },
             effect() {
-                let eff_u_33 = player.m.points.add(1).pow(2)
+                let eff_u_33 = player.m.points.add(1)
                 return eff_u_33
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
