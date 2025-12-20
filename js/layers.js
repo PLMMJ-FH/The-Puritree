@@ -24,7 +24,7 @@ addLayer("u", {
         if (!hasUpgrade('u', 21)) return new Decimal(0);
         let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
         if (player.u.essence.gte(1e1000000000000)) eff = eff.log10().add(1)
-        if (hasUpgrade('u', 32)) eff = eff.pow(2)
+        if (hasUpgrade('u', 32)) eff = eff.pow(3)
         return eff;
     },
 	effectDescription() { // text for UE gain
@@ -133,24 +133,24 @@ addLayer("u", {
             cost: new Decimal(1000000),
             unlocked() { return hasMilestone('m', 1) },
             effect() {
-                let eff_u_31 = player.u.essence.add(1).log10().pow(0.25).add(1)
+                let eff_u_31 = player.u.essence.add(1).log10().pow(1/3).add(1)
                 return eff_u_31
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         32: {
             title: "Softcap Assist",
-            description: "Square upgrade essence gain.",
-            cost: new Decimal(100000000000),
+            description: "Cube upgrade essence gain.",
+            cost: new Decimal(1000000000000),
             unlocked() { return hasMilestone('m', 1) },
         },
         33: {
             title: "Who needs UE?",
             description: "<b>UP up!</b> is stronger based on your milestone progress.",
-            cost: new Decimal(10000000000000000),
+            cost: new Decimal(1000000000000000),
             unlocked() { return hasMilestone('m', 1) },
             effect() {
-                let eff_u_33 = player.m.points.add(1).pow(0.5).add(1)
+                let eff_u_33 = player.m.points.add(1)
                 return eff_u_33
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
