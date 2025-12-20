@@ -178,7 +178,7 @@ addLayer("m", {
     resource: "milestone progress", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
-    branches: ["p"],
+    branches: ["u"],
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -219,7 +219,7 @@ addLayer("m", {
 		2: {
 			requirementDescription: "14 Milestone Progress",
 			done() { return player.m.best.gte(14) },
-			effectDescription: "You can buy max milestones.",
+			effectDescription: "You can buy max milestone progress.",
 		},
     },
 })
@@ -242,7 +242,7 @@ addLayer("b", {
     resource: "buyabucks", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
-    branches: ["p"],
+    branches: ["u"],
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.75, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -271,7 +271,7 @@ addLayer("b", {
     layerShown(){return hasAchievement('a', 13)},
     buyables: {
     	rows: 1,
-		cols: 8,
+		cols: 1,
         11: {
             title: "Point Booster",
             cost(x=player[this.layer].buyables[this.id]) { 
