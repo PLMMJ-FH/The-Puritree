@@ -207,8 +207,8 @@ addLayer("m", {
 			effectDescription: "Best milestone progress multiplies UP gain.",
 		},
 		1: {
-			requirementDescription: "8 Milestone Progress",
-			done() { return player.m.best.gte(8) },
+			requirementDescription: "7 Milestone Progress",
+			done() { return player.m.best.gte(7) },
 			effectDescription: "Unlock 3 extra upgrades.",
 		},
     },
