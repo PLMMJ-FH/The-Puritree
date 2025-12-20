@@ -13,11 +13,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.1",
-	name: "Endgame Update",
+	num: "0.3",
+	name: "Buyable Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.3</h3><br>
+		- Added Buyables.<br>
+		- Added another row of achievements.<br>
+		- Removed endgame for now.
 	<h3>v0.2.1</h3><br>
 		- Moved endgame to 1e50 points.<br>
 	<h3>v0.2</h3><br>
@@ -28,7 +32,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Dealt with mod.js.<br>
 		- Added Upgrades.<br>`
 
-let winText = `Congratulations! You have reached the end of the 3-layer version. 6 more layers await in future updates...<br>Ignore what it says about Discord. I don't know how to get rid of that.`
+let winText = `Congratulations! You have reached the end of the 4-layer version. 5 more layers await in future updates...<br>Ignore what it says about Discord. I don't know how to get rid of that.`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -67,7 +71,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e50"))
+	return player.points.gte(new Decimal("1e5000000"))
 }
 
 

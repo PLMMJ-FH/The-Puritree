@@ -163,7 +163,7 @@ addLayer("u", {
 addLayer("m", {
     name: "milestones", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "M", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 2, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: false,
 		best: new Decimal(0),
@@ -171,7 +171,10 @@ addLayer("m", {
 		points: new Decimal(0),
     }},
     color: "#793784",
-    requires: new Decimal(1e16), // Can be a function that takes requirement increases into account
+    requires() { // Can be a function that takes requirement increases into account
+        if (!player.b.unlocked) return new Decimal(1e16) 
+        if (player.b.unlocked) return new Decimal(1e50)
+    },
     resource: "milestone progress", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -196,7 +199,7 @@ addLayer("m", {
 				{}],
 		"blank",
         "milestones"],
-
+    canBuyMax() { return hasMilestone("m", 2) },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "m", description: "M: Reset for milestone progress", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -213,7 +216,82 @@ addLayer("m", {
 			done() { return player.m.best.gte(7) },
 			effectDescription: "Unlock 3 extra upgrades.",
 		},
+		2: {
+			requirementDescription: "14 Milestone Progress",
+			done() { return player.m.best.gte(14) },
+			effectDescription: "You can buy max milestones.",
+		},
     },
+})
+
+addLayer("b", {
+    name: "buyables", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "B", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+		best: new Decimal(0),
+		total: new Decimal(0),
+		points: new Decimal(0),
+    }},
+    color: "#ffae00ff",
+    requires() { // Can be a function that takes requirement increases into account
+        if (!player.m.unlocked) return new Decimal(1e16) 
+        if (player.m.unlocked) return new Decimal(1e50)
+    },
+    resource: "buyabucks", // Name of prestige currency
+    baseResource: "points", // Name of resource prestige is based on
+    baseAmount() {return player.points}, // Get the current amount of baseResource
+    branches: ["p"],
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.75, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        exp = new Decimal(1)
+        return exp
+    },
+	tabFormat: ["main-display",
+		"prestige-button",
+		["display-text",
+			function() {return 'You have ' + format(player.points) + ' points.'},
+				{}],
+		"blank",
+		["display-text",
+			function() {return 'Your best buyabucks is ' + formatWhole(player.b.best) + '.<br>You have made a total of '+formatWhole(player.b.total)+" buyabucks."},
+				{}],
+		"blank",
+        "buyables"],
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "b", description: "B: Reset for buyabucks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return hasAchievement('a', 13)},
+    buyables: {
+    	rows: 1,
+		cols: 8,
+        11: {
+            title: "Point Booster",
+            cost(x=player[this.layer].buyables[this.id]) { 
+                let base = Decimal(1)
+                base = base.mul(x).pow(3)
+                return base
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = Decimal(1)
+                eff = eff.mul(x).pow(2)
+                return eff
+            },
+            display() { return "Multiplies point gain." },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+    }
 })
 
 addLayer("a", {
