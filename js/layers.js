@@ -123,6 +123,7 @@ addLayer("u", {
             unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
                 let eff_u_23 = player.u.essence.add(1).log10().pow(0.5).add(1)
+                if (hasUpgrade('u', 33)) eff_u_23 = eff_u_23.times.upgradeEffect('u', 33)
                 return eff_u_23
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
