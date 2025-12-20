@@ -141,9 +141,7 @@ addLayer("u", {
         32: {
             title: "Softcap Assist",
             description: "Square upgrade essence gain.",
-            cost: new Decimal(1e1000000000000),
-			currencyDisplayName: "upgrade essence",
-            currencyInternalName: player.u.essence,
+            cost: new Decimal(100000000000),
             unlocked() { return hasMilestone('m', 1) },
         },
         33: {
