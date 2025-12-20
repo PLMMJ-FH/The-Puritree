@@ -151,7 +151,7 @@ addLayer("u", {
             cost: new Decimal(1000000000000000),
             unlocked() { return hasMilestone('m', 1) },
             effect() {
-                let eff_u_33 = player.m.points.add(1)
+                let eff_u_33 = player.m.points.add(1).pow(2)
                 return eff_u_33
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
