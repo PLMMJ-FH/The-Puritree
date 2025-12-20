@@ -13,11 +13,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2",
-	name: "Milestone Update",
+	num: "0.2.1",
+	name: "Endgame Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.2.1</h3><br>
+		- Moved endgame to 1e50 points.<br>
 	<h3>v0.2</h3><br>
 		- Played whack-a-mole with inflation.<br>
 		- Added Milestones.<br>
@@ -65,7 +67,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("1e50"))
 }
 
 
