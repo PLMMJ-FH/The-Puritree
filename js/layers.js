@@ -265,8 +265,8 @@ addLayer("a", {
         },
         23: {
             name: "Evolution",
-		    done() { return player.u.upgrades.length>=10 },
-		    tooltip: "Have 10 upgrades at once.",
+		    done() { return player.u.upgrades.length>=9 },
+		    tooltip: "Have 9 upgrades at once.",
         },
         24: {
             name: "Point Hog",
