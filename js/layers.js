@@ -291,7 +291,7 @@ addLayer("b", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
         },
-    }
+    },
 })
 
 addLayer("a", {
