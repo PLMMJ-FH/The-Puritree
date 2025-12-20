@@ -270,7 +270,7 @@ addLayer("a", {
         },
         24: {
             name: "Point Hog",
-		    done() { return player.u.essence.gte(1e32) },
+		    done() { return player.points.gte(1e32) },
 		    tooltip: "Reach 1e32 points.",
         },
         25: {
