@@ -43,7 +43,7 @@ addLayer("u", {
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         exp = new Decimal(1)
-        if (player.u.points.gte(1000000000000000)) exp = exp.pow(1/3)
+        if (player.u.points.gte(100000000000000000)) exp = exp.pow(1/3)
         return exp
     },
 	tabFormat: ["main-display",
@@ -105,21 +105,21 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         14: {
-            title: "Row Leader",
-            description: "Upgrades to the left of this one now scale based on upgrade essence.",
-            cost: new Decimal(1000000),
-            unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
-            effect() {
-                let eff_u_14 = player.u.essence.add(1).log10().add(1).log10().add(1)
-                return eff_u_14
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        15: {
             title: "Automagic",
             description: "Gain 1% of your UP/reset every second.",
             cost: new Decimal(1e12),
+            unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
+        },
+        15: {
+            title: "Row Leader",
+            description: "Upgrades to the left of this one (except <b>Automagic</b>) now also scale based on upgrade essence.",
+            cost: new Decimal(1000000),
             unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 13) },
+            effect() {
+                let eff_u_14 = player.u.essence.add(1).log10().log10().add(1)
+                return eff_u_14
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         21: {
             title: "I swear this isn't a prestige reskin",
@@ -315,7 +315,7 @@ addLayer("b", {
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(1)
-                base = base.times(x).pow(2).add(2)
+                base = base.times(x).add(x).pow(2).add(2)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -339,7 +339,7 @@ addLayer("b", {
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(5)
-                base = base.times(x).pow(3)
+                base = base.times(x).add(x).pow(3)
                 return base
             },
             display() { return 'Unlocks more upgrades.<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 4"},
@@ -397,8 +397,8 @@ addLayer("a", {
 		    tooltip: "Do your first row 2 reset.",
         },
         22: {
-            name: "How many softcaps can there be?!",
-		    done() { return player.u.points.gte(1000000000000000) },
+            name: "Another softcap?",
+		    done() { return player.u.points.gte(100000000000000000) },
 		    tooltip: "Hit the Upgrade Points softcap.",
         },
         23: {
