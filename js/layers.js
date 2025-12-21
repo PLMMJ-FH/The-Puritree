@@ -331,7 +331,7 @@ addLayer("a", {
         },
         21: {
             name: "The second one is not so free.",
-		    done() { return player.m.points.gte(1) },
+		    done() { return player.m.points.gte(1)||player.b.points.gte(1) },
 		    tooltip: "Do your first row 2 reset.",
         },
         22: {
