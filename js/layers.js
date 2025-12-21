@@ -168,7 +168,7 @@ addLayer("u", {
             unlocked() { return player.b.buyables[21].gte(4)&&hasUpgrade("u", 22) },
             effect() {
                 let eff_u_25 = player.b.best.add(1).pow(0.5).add(1)
-                if (eff_u_25.gte(100)) eff_u_25 = eff_u_25.log(2).add(99)
+                if (eff_u_25.gte(150)) eff_u_25 = eff_u_25.log(2).add(149)
                 return eff_u_25
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
