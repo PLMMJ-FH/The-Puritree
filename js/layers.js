@@ -323,7 +323,8 @@ addLayer("b", {
                 let freex = new Decimal(0)
                 if (!hasUpgrade('u', 25)) eff = eff.times(x)
                 if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25)).add(1)
-                if (hasUpgrade('u', 25)) eff = eff.times(x.add(freex))
+                if (hasUpgrade('u', 25)) freex = freex.add(x)
+                if (hasUpgrade('u', 25)) eff = eff.times(freex)
                 eff = eff.pow(2).add(1)
                 return eff
             },
