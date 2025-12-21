@@ -270,14 +270,14 @@ addLayer("b", {
 		cols: 1,
         11: {
             title: "Point Booster",
-            cost(x=player[this.layer].buyables[this.id]) { 
+            cost() { 
                 let base = Decimal(1)
-                base = base.mul(x).pow(2).add(1)
+                base = base.mul(player[this.layer].buyables[this.id]).pow(2).add(1)
                 return base
             },
-            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+            effect() {
                 let eff = Decimal(1)
-                eff = eff.mul(x).pow(1.5).add(1)
+                eff = eff.mul(player[this.layer].buyables[this.id]).pow(1.5).add(1)
                 return eff
             },
             display() { return 'Multiplies point gain.' },
