@@ -97,7 +97,7 @@ addLayer("u", {
             description: "Upgrade points multiply their own generation.",
             cost: new Decimal(10),
             effect() {
-                let eff_u_13 = player[this.layer].points.add(1).pow(0.1)
+                let eff_u_13 = player[this.layer].points.add(1).pow(0.125)
                 if (hasUpgrade('u', 33)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 33))
                 if (hasUpgrade('u', 15)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 15))
                 return eff_u_13
