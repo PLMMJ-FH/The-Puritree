@@ -311,6 +311,7 @@ addLayer("b", {
 		cols: 1,
         11: {
             title: "Point Booster",
+            unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(1)
                 base = base.times(x).pow(2).add(2)
@@ -339,6 +340,7 @@ addLayer("b", {
         21: {
             title: "R&D Lab",
             purchaseLimit: new Decimal(4),
+            unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(5)
                 base = base.times(x).pow(3)
