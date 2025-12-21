@@ -202,7 +202,7 @@ addLayer("m", {
         {key: "m", description: "M: Reset for milestone progress", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
-    increaseUnlockOrder: ["b"],
+    increaseUnlockOrder: [b],
     milestones: {
 		0: {
 			requirementDescription: "1 Milestone Progress",
@@ -264,7 +264,7 @@ addLayer("b", {
         {key: "b", description: "B: Reset for buyabucks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
-    increaseUnlockOrder: ["m"],
+    increaseUnlockOrder: [m],
     buyables: {
     	rows: 1,
 		cols: 1,
