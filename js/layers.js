@@ -173,7 +173,7 @@ addLayer("m", {
     color: "#793784",
     requires() { // Can be a function that takes requirement increases into account
         if (player.b.unlocked) return new Decimal(1e50) 
-        return new Decimal(1e50)
+        return new Decimal(1e16)
     },
     resource: "milestone progress", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
