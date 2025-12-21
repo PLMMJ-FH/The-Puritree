@@ -172,7 +172,7 @@ addLayer("m", {
     }},
     color: "#793784",
     requires() { // Can be a function that takes requirement increases into account
-        if (!player.b.unlocked) return new Decimal(1e16) 
+        if (player.b.unlocked) return new Decimal(1e50) 
         return new Decimal(1e50)
     },
     resource: "milestone progress", // Name of prestige currency
@@ -236,8 +236,8 @@ addLayer("b", {
     }},
     color: "#ffae00ff",
     requires() { // Can be a function that takes requirement increases into account
-        if (!player.m.unlocked) return new Decimal(1e16) 
-        return new Decimal(1e50)
+        if (player.m.unlocked) return new Decimal(1e50) 
+        return new Decimal(1e16)
     },
     resource: "buyabucks", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -276,12 +276,12 @@ addLayer("b", {
             title: "Point Booster",
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = Decimal(1)
-                base = base.mul(x).pow(3)
+                base = base.mul(x).pow(2).add(1)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = Decimal(1)
-                eff = eff.mul(x).pow(2)
+                eff = eff.mul(x).pow(1.5).add(1)
                 return eff
             },
             display() { return 'Multiplies point gain.' },
