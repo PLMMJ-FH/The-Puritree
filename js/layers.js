@@ -66,7 +66,7 @@ addLayer("u", {
         {key: "u", description: "U: Reset for upgrade points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-    passiveGeneration() { return (hasUpgrade("u", 14))?0.01:0 },
+    passiveGeneration() { return (hasUpgrade("u", 14))?0.05:0 },
     upgrades: {
         11: {
             title: "Upgrade Boost",
@@ -106,7 +106,7 @@ addLayer("u", {
         },
         14: {
             title: "Automagic",
-            description: "Gain 1% of your UP/reset every second.",
+            description: "Gain 5% of the UP you would gain on reset every second.",
             cost: new Decimal(100),
             unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
         },
