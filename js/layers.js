@@ -186,7 +186,7 @@ addLayer("u", {
         },
         32: {
             title: "Softcap Assist",
-            description: "Square upgrade essence gain and <b>Point Boost</b>'s effect.",
+            description: "Square upgrade essence gain and <b>Upgrade Boost</b>'s effect.",
             cost: new Decimal(1e12),
             unlocked() { return hasMilestone('m', 1) },
         },
