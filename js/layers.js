@@ -276,13 +276,14 @@ addLayer("b", {
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
-                let eff = times(x).pow(1.5).add(1)
+                let eff = Decimal(1)
+                eff = eff.times(x).pow(1.5).add(1)
                 return eff
             },
             display() { return 'Multiplies point gain.' },
-            canAfford() { return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(tmp[this.layer].buyables[this.id].cost)
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
         },
