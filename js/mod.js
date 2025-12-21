@@ -20,7 +20,8 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3</h3><br>
 		- Added Buyables.<br>
-		- Removed endgame for now..<br>
+		- Layers are now connected into a tree.<br>
+		- Removed endgame for now.<br>
 	<h3>v0.2.1</h3><br>
 		- Moved endgame to 1e50 points.<br>
 	<h3>v0.2</h3><br>
