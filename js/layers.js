@@ -171,7 +171,7 @@ addLayer("m", {
 		points: new Decimal(0),
     }},
     color: "#793784",
-    requires() { return new Decimal(1e16).times((player.m.unlockOrder&&!player.m.unlocked)?1e34:1) },
+    requires() { return new Decimal(1e16).times((hasAchievement("a", 21)&&!player.m.unlocked)?1e34:1) },
     resource: "milestone progress", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -202,7 +202,6 @@ addLayer("m", {
         {key: "m", description: "M: Reset for milestone progress", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
-    increaseUnlockOrder: ["b"],
     milestones: {
 		0: {
 			requirementDescription: "1 Milestone Progress",
@@ -233,13 +232,13 @@ addLayer("b", {
 		points: new Decimal(0),
     }},
     color: "#ffae00",
-    requires() { return new Decimal(1e16).times((player.b.unlockOrder&&!player.b.unlocked)?1e34:1) },
+    requires() { return new Decimal(1e16).times((hasAchievement("a", 21)&&!player.b.unlocked)?1e34:1) },
     resource: "buyabucks", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     branches: ["u"],
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.75, // Prestige currency exponent
+    exponent: 0.25, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -264,7 +263,6 @@ addLayer("b", {
         {key: "b", description: "B: Reset for buyabucks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
-    increaseUnlockOrder: ["m"],
     buyables: {
     	rows: 1,
 		cols: 1,
