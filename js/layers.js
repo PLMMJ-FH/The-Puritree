@@ -43,7 +43,7 @@ addLayer("u", {
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         exp = new Decimal(1)
-        if (player.u.points.gte(100000000000000000)) exp = exp.pow(1/3)
+        if (player.u.points.gte(1e18)) exp = exp.pow(1/3)
         return exp
     },
 	tabFormat: ["main-display",
@@ -82,7 +82,7 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         12: {
-            title: "Point Boost",
+            title: "Self-Boost",
             description: "Points multiply their own generation.",
             cost: new Decimal(5),
             effect() {
@@ -321,8 +321,8 @@ addLayer("b", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
                 let freex = new Decimal(0)
-                freex = freex.add(upgradeEffect("u", 25))
-                eff = eff.times(x.add(freex))
+                if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25))
+                if (hasUpgrade('u', 25)) eff = eff.times(x.add(freex))
                 eff = eff.pow(1.25).add(1)
                 return eff
             },
@@ -382,7 +382,7 @@ addLayer("a", {
 		    tooltip: "Complete the first two rows of upgrades. Reward: Gain the ability to unlock row 2 layers.",
         },
         14: {
-            name: "Essence Slowdown",
+            name: "Slowed to a halt",
 		    done() { return player.u.essence.gte(1e1000000000000) },
 		    tooltip: "Hit the Upgrade Essence softcap.",
         },
@@ -398,7 +398,7 @@ addLayer("a", {
         },
         22: {
             name: "Another softcap?",
-		    done() { return player.u.points.gte(100000000000000000) },
+		    done() { return player.u.points.gte(1e18) },
 		    tooltip: "Hit the Upgrade Points softcap.",
         },
         23: {
