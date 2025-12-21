@@ -307,8 +307,8 @@ addLayer("b", {
     ],
     layerShown(){return hasAchievement('a', 13)},
     buyables: {
-    	rows: 2,
-		cols: 1,
+    	rows: 1,
+		cols: 2,
         11: {
             title: "Point Booster",
             cost(x=player[this.layer].buyables[this.id]) { 
@@ -336,7 +336,7 @@ addLayer("b", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
         },
-        21: {
+        12: {
             title: "R&D Lab",
             purchaseLimit: new Decimal(4),
             cost(x=player[this.layer].buyables[this.id]) { 
