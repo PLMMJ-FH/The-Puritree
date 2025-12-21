@@ -286,14 +286,6 @@ addLayer("b", {
         exp = new Decimal(1)
         return exp
     },
-    powerGain() {
-        if (!player.b.buyables[11].gte(1)) return new Decimal(0)
-        let gain = buyableEffect("b", 11)
-        return gain
-    },
-    update(diff) { // BP gain
-			if (player.b.unlocked) player.b.power = player.b.power.plus(tmp.b.powerGain.times(diff));
-    },
 	tabFormat: ["main-display",
 		"prestige-button",
 		["display-text",
@@ -317,6 +309,26 @@ addLayer("b", {
     buyables: {
     	rows: 2,
 		cols: 2,
+        11: {
+            title: "Power Generator",
+            cost(x=player[this.layer].buyables[this.id]) { 
+                let base = new Decimal(25)
+                if (!hasUpgrade('u', 25)) base = base.add(1).times(x).pow(666).add(1)
+                if (hasUpgrade('u', 25)) base = base.add(1).times(x).pow(2.5).add(1)
+                return base
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = new Decimal(2)
+                eff = eff.times(x).pow(1.5).add(1).mult(100).log10().add(1)
+                return eff
+            },
+            display() { return 'Generates buyable power. BP effect: None.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + '/sec<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>(cost can be reduced by outside features)'},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
         12: {
             title: "Point Booster",
             cost(x=player[this.layer].buyables[this.id]) { 
