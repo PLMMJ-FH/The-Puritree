@@ -14,21 +14,22 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.3",
-	name: "Buyable Update",
+	name: "The Bug-Bringing Buyables Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.3</h3><br>
+	<h3>v0.3: Bug-Bringing Buyables</h3><br>
+		- Patched what must've been dozens of bugs across the development of the update.<br>
 		- Added Buyables.<br>
 		- Layers are now connected into a tree.<br>
 		- Removed endgame for now.<br>
-	<h3>v0.2.1</h3><br>
+	<h3>v0.2.1: Early Endgame</h3><br>
 		- Moved endgame to 1e50 points.<br>
-	<h3>v0.2</h3><br>
+	<h3>v0.2: Meticulous Milestones</h3><br>
 		- Played whack-a-mole with inflation.<br>
 		- Added Milestones.<br>
 		- Added Achievements.<br>
-	<h3>v0.1</h3><br>
+	<h3>v0.1: Underdeveloped Upgrades</h3><br>
 		- Dealt with mod.js.<br>
 		- Added Upgrades.<br>`
 
