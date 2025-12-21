@@ -129,12 +129,13 @@ addLayer("u", {
             unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
         },
         22: {
-            title: "Don't you mean generator power?",
+            title: "Powerful Essence",
             description: "Upgrade essence multiplies point generation.",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
                 let eff_u_22 = player.u.essence.add(1).log10().add(1)
+                if (hasUpgrade('u', 24)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 24))
                 return eff_u_22
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -147,6 +148,17 @@ addLayer("u", {
             effect() {
                 let eff_u_23 = player.u.essence.add(1).log10().pow(0.5).add(1)
                 return eff_u_23
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        24: {
+            title: "The Rich Get Richer",
+            description: "<b>Powerful Essence</b>'s effect is boosted based on buyabucks.",
+            cost: new Decimal(1e22),
+            unlocked() { return player.b.buyables[12].gte(3)&&hasUpgrade("u", 22) },
+            effect() {
+                let eff_u_24 = player.b.points.add(1).pow(0.15).add(1)
+                return eff_u_24
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -308,13 +320,13 @@ addLayer("b", {
         },
         12: {
             title: "R&D Lab",
-            purchaseLimit: new Decimal(2),
+            purchaseLimit: new Decimal(3),
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(5)
                 base = base.times(x).pow(3)
                 return base
             },
-            display() { return 'Unlocks more upgrades.<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 2" + '<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' },
+            display() { return 'Unlocks more upgrades.<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 3" + '<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
