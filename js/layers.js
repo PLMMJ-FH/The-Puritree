@@ -143,13 +143,13 @@ addLayer("u", {
         32: {
             title: "Softcap Assist",
             description: "Square upgrade essence gain and <b>Point Boost</b>'s effect.",
-            cost: new Decimal(1000000000000),
+            cost: new Decimal(1e12),
             unlocked() { return hasMilestone('m', 1) },
         },
         33: {
             title: "Who needs UE?",
             description: "<b>UP up!</b> is stronger based on your milestone progress.",
-            cost: new Decimal(10000000000000000000000),
+            cost: new Decimal(1e22),
             unlocked() { return hasMilestone('m', 1) },
             effect() {
                 let eff_u_33 = player.m.points.add(1)
@@ -171,10 +171,7 @@ addLayer("m", {
 		points: new Decimal(0),
     }},
     color: "#793784",
-    requires() { // Can be a function that takes requirement increases into account
-        if (player.b.unlocked) return new Decimal(1e50) 
-        return new Decimal(1e16)
-    },
+    requires() { return new Decimal(1e16).times((player.m.unlockOrder&&!player.m.unlocked)?1e34:1) },
     resource: "milestone progress", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -205,6 +202,7 @@ addLayer("m", {
         {key: "m", description: "M: Reset for milestone progress", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
+    increaseUnlockOrder: ["b"],
     milestones: {
 		0: {
 			requirementDescription: "1 Milestone Progress",
@@ -235,10 +233,7 @@ addLayer("b", {
 		points: new Decimal(0),
     }},
     color: "#ffae00ff",
-    requires() { // Can be a function that takes requirement increases into account
-        if (player.m.unlocked) return new Decimal(1e50) 
-        return new Decimal(1e16)
-    },
+    requires() { return new Decimal(1e16).times((player.b.unlockOrder&&!player.b.unlocked)?1e34:1) },
     resource: "buyabucks", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -269,6 +264,7 @@ addLayer("b", {
         {key: "b", description: "B: Reset for buyabucks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
+    increaseUnlockOrder: ["m"],
     buyables: {
     	rows: 1,
 		cols: 1,
