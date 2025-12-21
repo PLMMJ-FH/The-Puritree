@@ -321,7 +321,7 @@ addLayer("b", {
             title: "Power Generator",
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(25)
-                if (!hasUpgrade('u', 25)) base = base.add(1).times(x).pow(6673).add(1)
+                if (!hasUpgrade('u', 25)) base = base.add(1).times(x).pow(666).add(1)
                 if (hasUpgrade('u', 25)) base = base.add(1).times(x).pow(2.5).add(1)
                 return base
             },
@@ -349,7 +349,7 @@ addLayer("b", {
                 eff = eff.times(x)
                 let bpeff = player.b.power.add(1)
                 if (bpeff.gte(100)) bpeff = bpeff.log10().add(99)
-                if (player.b.buyables[11].gte(1)) eff = eff.add(bpeff)
+                eff = eff.add(bpeff)
                 eff = eff.pow(1.25).add(1)
                 return eff
             },
