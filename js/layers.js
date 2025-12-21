@@ -74,7 +74,7 @@ addLayer("u", {
             cost: new Decimal(1),
             effect() {
                 let eff_u_11 = player[this.layer].points.add(1).pow(0.5)
-                if (eff_u_11.gte(1500)) eff_u_11 = eff_u_11.pow(0.5).add(1)
+                if (eff_u_11.gte(1500)) eff_u_11 = eff_u_11.pow(0.5).add(1499)
                 if (hasUpgrade('u', 32)) eff_u_11 = eff_u_11.pow(2).add(1)
                 if (hasUpgrade('u', 15)) eff_u_11 = eff_u_11.times(upgradeEffect('u', 15))
                 return eff_u_11
@@ -156,19 +156,19 @@ addLayer("u", {
             cost: new Decimal(1e22),
             unlocked() { return player.b.buyables[21].gte(3)&&hasUpgrade("u", 22) },
             effect() {
-                let eff_u_24 = player.b.points.add(1).pow(0.2).add(1)
+                let eff_u_24 = player.b.points.add(1).pow(0.25).add(1)
                 return eff_u_24
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         25: {
             title: "BB Combo",
-            description: "Unspent buyabucks now grant free Point Booster levels.",
+            description: "Best buyabucks now grant free Point Booster levels. (Softcap: 100 free levels)",
             cost: new Decimal(1e32),
             unlocked() { return player.b.buyables[21].gte(4)&&hasUpgrade("u", 22) },
             effect() {
-                let eff_u_25 = player.b.points.add(1).pow(0.5).add(1)
-                if (eff_u_25.gte(100)) eff_u_25 = eff_u_25.log10().add(99)
+                let eff_u_25 = player.b.best.add(1).pow(0.5).add(1)
+                if (eff_u_25.gte(100)) eff_u_25 = eff_u_25.log(2).add(99)
                 return eff_u_25
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
