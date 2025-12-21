@@ -271,12 +271,12 @@ addLayer("b", {
         11: {
             title: "Point Booster",
             cost(x=player[this.layer].buyables[this.id]) { 
-                let base = Decimal(1)
+                let base = new Decimal(1)
                 base = base.times(x).pow(2).add(1)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
-                let eff = Decimal(1)
+                let eff = new Decimal(1)
                 eff = eff.times(x).pow(1.5).add(1)
                 return eff
             },
