@@ -342,7 +342,7 @@ addLayer("b", {
                 base = base.times(x).pow(3)
                 return base
             },
-            display() { return 'Unlocks more upgrades.<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 4" + '<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' },
+            display() { return 'Unlocks more upgrades.<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 4"},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
