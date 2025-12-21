@@ -111,7 +111,7 @@ addLayer("u", {
             cost: new Decimal(1000000),
             unlocked() { return player.b.buyables[12].gte(1)&&hasUpgrade("u", 13) },
             effect() {
-                let eff_u_14 = player.u.essence.add(1).log10().add(1).pow(0.75).add(1)
+                let eff_u_14 = player.u.essence.add(1).log10().add(1).log10().add(1)
                 return eff_u_14
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
