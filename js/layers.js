@@ -67,6 +67,7 @@ addLayer("u", {
         {key: "u", description: "U: Reset for upgrade points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    passiveGeneration() { return (hasUpgrade("u", 15))?0.01:0 },
     upgrades: {
         11: {
             title: "Upgrade Boost",
@@ -76,6 +77,7 @@ addLayer("u", {
                 let eff_u_11 = player[this.layer].points.add(1).pow(0.5)
                 if (eff_u_11.gte(1500)) eff_u_11 = eff_u_11.pow(0.5).add(1)
                 if (hasUpgrade('u', 32)) eff_u_11 = eff_u_11.pow(2).add(1)
+                if (hasUpgrade('u', 14)) eff_u_11 = eff_u_11.times(upgradeEffect('u', 14))
                 return eff_u_11
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -86,6 +88,7 @@ addLayer("u", {
             cost: new Decimal(5),
             effect() {
                 let eff_u_12 = player.points.add(1).pow(0.1)
+                if (hasUpgrade('u', 14)) eff_u_12 = eff_u_12.times(upgradeEffect('u', 14))
                 return eff_u_12
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -97,9 +100,27 @@ addLayer("u", {
             effect() {
                 let eff_u_13 = player[this.layer].points.add(1).pow(0.1)
                 if (hasUpgrade('u', 33)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 33))
+                if (hasUpgrade('u', 14)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 14))
                 return eff_u_13
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        14: {
+            title: "Row Leader",
+            description: "Upgrades to the left of this one now scale based on upgrade essence.",
+            cost: new Decimal(1000000),
+            unlocked() { return player.b.buyables[12].gte(1)&&hasUpgrade("u", 13) },
+            effect() {
+                let eff_u_14 = player.u.essence.add(1).log10().add(1).pow(0.75).add(1)
+                return eff_u_14
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        15: {
+            title: "Automagic",
+            description: "Gain 1% of your UP/reset every second.",
+            cost: new Decimal(1e12),
+            unlocked() { return player.b.buyables[12].gte(2)&&hasUpgrade("u", 13) },
         },
         21: {
             title: "I swear this isn't a prestige reskin",
@@ -265,12 +286,12 @@ addLayer("b", {
     layerShown(){return hasAchievement('a', 13)},
     buyables: {
     	rows: 1,
-		cols: 1,
+		cols: 2,
         11: {
             title: "Point Booster",
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(1)
-                base = base.times(x).pow(2).add(1)
+                base = base.times(x).pow(2).add(2)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -278,7 +299,22 @@ addLayer("b", {
                 eff = eff.times(x).pow(1.5).add(1)
                 return eff
             },
-            display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabuck(s)'},
+            display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks'},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+        12: {
+            title: "R&D Lab",
+            purchaseLimit: new Decimal(2),
+            cost(x=player[this.layer].buyables[this.id]) { 
+                let base = new Decimal(5)
+                base = base.times(x).pow(3)
+                return base
+            },
+            display() { return 'Unlocks more upgrades.<br>Level:' + formatWhole(player[this.layer].buyables[this.id]) +" / "+formatWhole(data.purchaseLimit)+ + '<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
