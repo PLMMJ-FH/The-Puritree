@@ -202,7 +202,7 @@ addLayer("m", {
         {key: "m", description: "M: Reset for milestone progress", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
-    increaseUnlockOrder: [b],
+    increaseUnlockOrder: ["b"],
     milestones: {
 		0: {
 			requirementDescription: "1 Milestone Progress",
@@ -232,7 +232,7 @@ addLayer("b", {
 		total: new Decimal(0),
 		points: new Decimal(0),
     }},
-    color: "#ffae00ff",
+    color: "#ffae00",
     requires() { return new Decimal(1e16).times((player.b.unlockOrder&&!player.b.unlocked)?1e34:1) },
     resource: "buyabucks", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -264,7 +264,7 @@ addLayer("b", {
         {key: "b", description: "B: Reset for buyabucks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
-    increaseUnlockOrder: [m],
+    increaseUnlockOrder: ["m"],
     buyables: {
     	rows: 1,
 		cols: 1,
