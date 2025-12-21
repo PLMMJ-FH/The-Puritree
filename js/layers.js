@@ -163,12 +163,12 @@ addLayer("u", {
         },
         25: {
             title: "BB Combo",
-            description: "Best buyabucks now grant free Point Booster levels. (Softcap: 100 free levels)",
+            description: "Best buyabucks now grant free Point Booster levels. (Softcap: 200 free levels)",
             cost: new Decimal(1e32),
             unlocked() { return player.b.buyables[21].gte(4)&&hasUpgrade("u", 22) },
             effect() {
                 let eff_u_25 = player.b.best.add(1).pow(0.5).add(1)
-                if (eff_u_25.gte(150)) eff_u_25 = eff_u_25.log(2).add(149)
+                if (eff_u_25.gte(200)) eff_u_25 = eff_u_25.log(2).add(199)
                 return eff_u_25
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
