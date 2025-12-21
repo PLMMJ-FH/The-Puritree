@@ -347,10 +347,13 @@ addLayer("b", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
                 eff = eff.times(x)
+                let bpeff = player.b.power.add(1)
+                if (bpeff.gte(100)) bpeff = bpeff.log10().add(99)
+                eff = eff.add(bpeff)
                 eff = eff.pow(1.25).add(1)
                 return eff
             },
-            display() { return 'Multiplies point gain. BP effect: Adds free levels. <br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks'},
+            display() { return 'Multiplies point gain. BP effect: Adds free levels.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks'},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
