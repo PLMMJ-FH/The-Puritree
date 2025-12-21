@@ -257,37 +257,13 @@ addLayer("b", {
 		["display-text",
 			function() {return 'Your best buyabucks is ' + formatWhole(player.b.best) + '.<br>You have made a total of '+formatWhole(player.b.total)+" buyabucks."},
 				{}],
-		"blank",
-        "buyables"],
+		"blank"],
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "b", description: "B: Reset for buyabucks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasAchievement('a', 13)},
     increaseUnlockOrder: ["m"],
-    buyables: {
-    	rows: 1,
-		cols: 1,
-        11: {
-            title: "Point Booster",
-            cost(x) { 
-                let base = Decimal(1)
-                base = base.mul(x).pow(2).add(1)
-                return base
-            },
-            effect(x) { // Effects of owning x of the items, x is a decimal
-                let eff = Decimal(1)
-                eff = eff.mul(x).pow(1.5).add(1)
-                return eff
-            },
-            display() { return 'Multiplies point gain.' },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost())
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
-            },
-        },
-    },
 })
 
 addLayer("a", {
