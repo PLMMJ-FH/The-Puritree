@@ -66,7 +66,7 @@ addLayer("u", {
         {key: "u", description: "U: Reset for upgrade points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-    passiveGeneration() { return (hasUpgrade("u", 15))?0.01:0 },
+    passiveGeneration() { return (hasUpgrade("u", 14))?0.01:0 },
     upgrades: {
         11: {
             title: "Upgrade Boost",
