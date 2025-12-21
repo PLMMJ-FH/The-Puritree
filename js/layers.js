@@ -108,7 +108,7 @@ addLayer("u", {
             title: "Row Leader",
             description: "Upgrades to the left of this one now scale based on upgrade essence.",
             cost: new Decimal(1000000),
-            unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
+            unlocked() { return player.b.buyables[12].gte(1)&&hasUpgrade("u", 13) },
             effect() {
                 let eff_u_14 = player.u.essence.add(1).log10().add(1).log10().add(1)
                 return eff_u_14
@@ -119,7 +119,7 @@ addLayer("u", {
             title: "Automagic",
             description: "Gain 1% of your UP/reset every second.",
             cost: new Decimal(1e12),
-            unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 13) },
+            unlocked() { return player.b.buyables[12].gte(2)&&hasUpgrade("u", 13) },
         },
         21: {
             title: "I swear this isn't a prestige reskin",
@@ -154,7 +154,7 @@ addLayer("u", {
             title: "The Rich Get Richer",
             description: "<b>Powerful Essence</b>'s effect is boosted based on buyabucks.",
             cost: new Decimal(1e22),
-            unlocked() { return player.b.buyables[21].gte(3)&&hasUpgrade("u", 22) },
+            unlocked() { return player.b.buyables[12].gte(3)&&hasUpgrade("u", 22) },
             effect() {
                 let eff_u_24 = player.b.points.add(1).pow(0.15).add(1)
                 return eff_u_24
@@ -170,7 +170,7 @@ addLayer("u", {
                 if (eff_u_25.gte(100)) eff_u_25 = eff_u_25.log10().add(99)
                 return eff_u_25
             },
-            unlocked() { return player.b.buyables[21].gte(4)&&hasUpgrade("u", 22) },
+            unlocked() { return player.b.buyables[12].gte(4)&&hasUpgrade("u", 22) },
         },
         31: {
             title: "Fueling Essence",
@@ -337,7 +337,7 @@ addLayer("b", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
         },
-        21: {
+        12: {
             title: "R&D Lab",
             purchaseLimit: new Decimal(4),
             unlocked() { return player[this.layer].unlocked }, 
