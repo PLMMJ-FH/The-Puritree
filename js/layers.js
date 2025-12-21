@@ -167,7 +167,7 @@ addLayer("u", {
             cost: new Decimal(1e32),
             unlocked() { return player.b.buyables[21].gte(4)&&hasUpgrade("u", 22) },
             effect() {
-                let eff_u_25 = player.b.points.add(1).pow(1/3).add(1)
+                let eff_u_25 = player.b.points.add(1).pow(0.5).add(1)
                 if (eff_u_25.gte(100)) eff_u_25 = eff_u_25.log10().add(99)
                 return eff_u_25
             },
