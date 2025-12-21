@@ -171,7 +171,7 @@ addLayer("m", {
 		points: new Decimal(0),
     }},
     color: "#793784",
-    requires() { return new Decimal(1e16).times((player.m.unlockOrder&&!player.m.unlocked)?1e34:1) },
+    requires: new Decimal(1e16),
     resource: "milestone progress", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -233,7 +233,7 @@ addLayer("b", {
 		points: new Decimal(0),
     }},
     color: "#ffae00",
-    requires() { return new Decimal(1e16).times((player.b.unlockOrder&&!player.b.unlocked)?1e34:1) },
+    requires: new Decimal(1e16),
     resource: "buyabucks", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -270,14 +270,14 @@ addLayer("b", {
 		cols: 1,
         11: {
             title: "Point Booster",
-            cost() { 
+            cost(x=player[this.layer].buyables[this.id]) { 
                 let base = Decimal(1)
-                base = base.mul(player[this.layer].buyables[this.id]).pow(2).add(1)
+                base = base.mul(x).pow(2).add(1)
                 return base
             },
-            effect() {
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = Decimal(1)
-                eff = eff.mul(player[this.layer].buyables[this.id]).pow(1.5).add(1)
+                eff = eff.mul(x).pow(1.5).add(1)
                 return eff
             },
             display() { return 'Multiplies point gain.' },
