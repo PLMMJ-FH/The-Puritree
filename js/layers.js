@@ -286,8 +286,13 @@ addLayer("b", {
         exp = new Decimal(1)
         return exp
     },
+    powerGain() {
+        if (!player.b.buyables[11].gte(1)) return new Decimal(0)
+        let gain = buyableEffect("b", 11)
+        return gain
+    },
     update(diff) { // BP gain
-			if (player.b.buyables[11].gte(1)) player.b.power = player.b.power.plus(buyableEffect("b", 11).times(diff));
+			if (player.b.unlocked) player.b.power = player.b.power.plus(tmp.b.powerGain.times(diff));
     },
 	tabFormat: ["main-display",
 		"prestige-button",
