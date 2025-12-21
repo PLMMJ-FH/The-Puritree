@@ -152,7 +152,7 @@ addLayer("u", {
         },
         24: {
             title: "The Rich Get Richer",
-            description: "<b>Powerful Essence</b>'s effect is boosted based on buyabucks.",
+            description: "<b>Powerful Essence</b>'s effect is boosted based on unspent buyabucks.",
             cost: new Decimal(1e22),
             unlocked() { return player.b.buyables[21].gte(3)&&hasUpgrade("u", 22) },
             effect() {
