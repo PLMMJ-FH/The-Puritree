@@ -76,7 +76,7 @@ addLayer("u", {
                 let eff_u_11 = player[this.layer].points.add(1).pow(0.5)
                 if (eff_u_11.gte(1500)) eff_u_11 = eff_u_11.pow(0.5).add(1)
                 if (hasUpgrade('u', 32)) eff_u_11 = eff_u_11.pow(2).add(1)
-                if (hasUpgrade('u', 14)) eff_u_11 = eff_u_11.times(upgradeEffect('u', 14))
+                if (hasUpgrade('u', 15)) eff_u_11 = eff_u_11.times(upgradeEffect('u', 15))
                 return eff_u_11
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -87,7 +87,7 @@ addLayer("u", {
             cost: new Decimal(5),
             effect() {
                 let eff_u_12 = player.points.add(1).pow(0.1)
-                if (hasUpgrade('u', 14)) eff_u_12 = eff_u_12.times(upgradeEffect('u', 14))
+                if (hasUpgrade('u', 15)) eff_u_12 = eff_u_12.times(upgradeEffect('u', 15))
                 return eff_u_12
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -99,7 +99,7 @@ addLayer("u", {
             effect() {
                 let eff_u_13 = player[this.layer].points.add(1).pow(0.1)
                 if (hasUpgrade('u', 33)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 33))
-                if (hasUpgrade('u', 14)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 14))
+                if (hasUpgrade('u', 15)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 15))
                 return eff_u_13
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -107,13 +107,13 @@ addLayer("u", {
         14: {
             title: "Automagic",
             description: "Gain 1% of your UP/reset every second.",
-            cost: new Decimal(1e12),
+            cost: new Decimal(100),
             unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
         },
         15: {
             title: "Row Leader",
             description: "Upgrades to the left of this one (except <b>Automagic</b>) now also scale based on upgrade essence.",
-            cost: new Decimal(1000000),
+            cost: new Decimal(1e12),
             unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 13) },
             effect() {
                 let eff_u_14 = player.u.essence.add(1).log10().log10().add(1)
