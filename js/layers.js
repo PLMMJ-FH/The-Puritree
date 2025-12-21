@@ -286,6 +286,14 @@ addLayer("b", {
         exp = new Decimal(1)
         return exp
     },
+    powerGain() {
+        if (!player.b.buyables[11].gte(1)) return new Decimal(0)
+        let gain = buyableEffect("b", 11)
+        return gain
+    },
+    update(diff) { // BP gain
+			if (player.b.unlocked) player.b.power = player.b.power.plus(tmp.b.powerGain.times(diff));
+    },
 	tabFormat: ["main-display",
 		"prestige-button",
 		["display-text",
@@ -339,9 +347,6 @@ addLayer("b", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
                 eff = eff.times(x)
-                let bpeff = player.b.power.add(1)
-                if (bpeff.gte(100)) bpeff = bpeff.log10().add(99)
-                eff = eff.add(bpeff)
                 eff = eff.pow(1.25).add(1)
                 return eff
             },
