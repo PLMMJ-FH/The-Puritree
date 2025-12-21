@@ -324,7 +324,7 @@ addLayer("b", {
                 if (!hasUpgrade('u', 25)) eff = eff.times(x)
                 if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25)).add(1)
                 if (hasUpgrade('u', 25)) eff = eff.times(x.add(freex))
-                eff = eff.pow(1.25).add(1)
+                eff = eff.pow(1.5).add(1)
                 return eff
             },
             display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
