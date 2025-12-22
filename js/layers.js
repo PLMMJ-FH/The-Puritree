@@ -442,7 +442,7 @@ addLayer("a", {
         21: {
             name: "The second one is not so free.",
 		    done() { return player.m.points.gte(1)||player.b.points.gte(1) },
-		    tooltip: "Do your first row 2 reset.",
+		    tooltip: "Do your first row 2 reset. Reward: Double point generation, and get +1 point/sec independent of multipliers.",
         },
         22: {
             name: "Another softcap?",

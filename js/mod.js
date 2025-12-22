@@ -54,12 +54,15 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	if (hasAchievement('a', 21)) gain = gain.times(2)
 	if (hasUpgrade('u', 11)) gain = gain.times(upgradeEffect('u', 11))
 	if (hasUpgrade('u', 12)) gain = gain.times(upgradeEffect('u', 12))
 	if (hasUpgrade('u', 22)) gain = gain.times(upgradeEffect('u', 22))
 	if (hasAchievement('a', 15)) gain = gain.times(1.1)
 	if (hasAchievement('a', 25)) gain = gain.times(1.2)
-	if (player.b.unlocked) gain = gain.times(buyableEffect("b", 11));
+	if (player.b.buyables[11].gte(1)||hasUpgrade('u', 25)) gain = gain.times(buyableEffect("b", 11));
+
+	if (hasAchievement('a', 21)) gain = gain.add(1)
 	return gain
 }
 
