@@ -325,7 +325,7 @@ addLayer("b", {
                 if (!hasUpgrade('u', 25)) eff = eff.times(x)
                 if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25))
                 if (hasUpgrade('u', 25)) freex = freex.add(x)
-                if (hasUpgrade('u', 25)) eff = eff.times(freex)
+                eff = eff.times(freex)
                 if (player.b.buyables[22].gte(1)) eff = eff.pow(buyableEffect("b", 22))
                 eff = eff.pow(2).add(1)
                 return eff
