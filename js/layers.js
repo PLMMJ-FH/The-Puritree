@@ -316,7 +316,7 @@ addLayer("b", {
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(2)
-                base = base.times(x.add(1)).add(x).pow(2)
+                base = base.times(x.add(1)).pow(2)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -364,7 +364,7 @@ addLayer("b", {
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(10)
-                base = base.times(x.times(10)).add(x).pow(2.5)
+                base = base.times(x.add(1).times(10)).add(x).pow(2.5)
                 return base
             },
             display() { return 'Unlocks 2 more upgrades and 1 more buyable per level. (levels 3 and 4 are currently unimplemented)<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 2"},
