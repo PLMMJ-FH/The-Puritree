@@ -114,7 +114,7 @@ addLayer("u", {
             title: "Row Leader",
             description: "Upgrades to the left of this one (except <b>Automagic</b>) now also scale based on upgrade essence.",
             cost: new Decimal(1e12),
-            unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 13) },
+            unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
             effect() {
                 let eff_u_14 = player.u.essence.add(1).log10().log10().add(1)
                 return eff_u_14
@@ -154,7 +154,7 @@ addLayer("u", {
             title: "The Rich Get Richer",
             description: "<b>Powerful Essence</b>'s effect is boosted based on unspent buyabucks.",
             cost: new Decimal(1e22),
-            unlocked() { return player.b.buyables[21].gte(3)&&hasUpgrade("u", 22) },
+            unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 22) },
             effect() {
                 let eff_u_24 = player.b.points.add(1).pow(0.25).add(1)
                 return eff_u_24
@@ -165,7 +165,7 @@ addLayer("u", {
             title: "BB Combo",
             description: "Best buyabucks now grant free Point Booster levels. (Softcap: 200 free levels)",
             cost: new Decimal(1e32),
-            unlocked() { return player.b.buyables[21].gte(4)&&hasUpgrade("u", 22) },
+            unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 22) },
             effect() {
                 let eff_u_25 = player.b.best.add(1).pow(0.5).add(1)
                 if (eff_u_25.gte(200)) eff_u_25 = eff_u_25.log(2).add(199)
@@ -285,6 +285,7 @@ addLayer("b", {
     exponent: 0.25, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (player.b.buyables[12].gte(1)) gain = gain.times(buyableEffect("b", 12));
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -309,7 +310,7 @@ addLayer("b", {
     layerShown(){return hasAchievement('a', 13)},
     buyables: {
     	rows: 2,
-		cols: 1,
+		cols: 2,
         11: {
             title: "Point Booster",
             unlocked() { return player[this.layer].unlocked }, 
@@ -325,10 +326,32 @@ addLayer("b", {
                 if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25)).add(1)
                 if (hasUpgrade('u', 25)) freex = freex.add(x)
                 if (hasUpgrade('u', 25)) eff = eff.times(freex)
+                if (player.b.buyables[12].gte(1)) eff = eff.pow(buyableEffect("b", 22))
                 eff = eff.pow(2).add(1)
                 return eff
             },
             display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+        12: {
+            title: "Work Generator",
+            unlocked() { return player.b.buyables[21].gte(1) }, 
+            cost(x=player[this.layer].buyables[this.id]) { 
+                let base = new Decimal(5)
+                base = base.times(x.add(1)).add(x).pow(3)
+                return base
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = new Decimal(1)
+                eff = eff.times(x)
+                eff = eff.pow(1.25).add(1)
+                return eff
+            },
+            display() { return 'Multiplies buyabuck gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -340,11 +363,33 @@ addLayer("b", {
             purchaseLimit: new Decimal(4),
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
-                let base = new Decimal(5)
-                base = base.times(x).add(x).pow(3)
+                let base = new Decimal(10)
+                base = base.times(x.times(10)).add(x).pow(2.5)
                 return base
             },
-            display() { return 'Unlocks more upgrades.<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 4"},
+            display() { return 'Unlocks 2 more upgrades and 1 more buyable per level. (levels 3 and 4 are currently unimplemented)<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 2"},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+        22: {
+            title: "Point Super-Booster",
+            purchaseLimit: new Decimal(4),
+            unlocked() { return player.b.buyables[21].gte(2) }, 
+            cost(x=player[this.layer].buyables[this.id]) { 
+                let base = new Decimal(5)
+                base = base.times(x.times(10)).add(x).pow(2.5)
+                return base
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = new Decimal(1)
+                eff = eff.times(x)
+                eff = eff.times(0.5).add(1)
+                return eff
+            },
+            display() { return 'Raises Point Booster strength to a power based on its level.<br>Currently: ^' +  format(buyableEffect(this.layer, this.id)) + '<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 4"},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
