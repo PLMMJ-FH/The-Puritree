@@ -462,7 +462,7 @@ addLayer("a", {
         25: {
             name: "Mechanic",
 		    done() { return hasAchievement('a', 21) && hasAchievement('a', 22) && hasAchievement('a', 23) && hasAchievement('a', 24) },
-		    tooltip: "Achieve the other row 2 achievements. Reward: Gain 10% more points.",
+		    tooltip: "Achieve the other row 2 achievements. Reward: Gain 20% more points.",
         },
     },
 	tabFormat: [
