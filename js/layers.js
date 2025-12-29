@@ -355,7 +355,7 @@ addLayer("b", {
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
                 let freex = new Decimal(1)
-                if (!hasUpgrade('u', 25)) eff = eff.times(x)
+                if (!hasUpgrade('u', 25)) eff = eff.times(x).add(x)
                 if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25))
                 if (hasUpgrade('u', 25)) freex = freex.add(x)
                 if (hasUpgrade('u', 25)) eff = eff.times(freex).add(freex)
