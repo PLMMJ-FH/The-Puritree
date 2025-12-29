@@ -37,7 +37,7 @@ addLayer("u", {
         mult = new Decimal(1)
         if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
         if (hasUpgrade("u", 23)) mult = mult.times(upgradeEffect("u", 23))
-        if ((hasMilestone('m', 0))&&(!hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1)
+        if ((hasMilestone('m', 0))&&(!hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).times(0.5)
         if ((hasMilestone('m', 0))&&(hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).times(upgradeEffect('u', 31))
         return mult
     },
