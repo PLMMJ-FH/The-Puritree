@@ -78,11 +78,11 @@ addLayer("u", {
             description: "Upgrade points multiply point generation. (Softcap: 1500x)",
             cost: new Decimal(1),
             effect() {
-                let eff_u_11 = player[this.layer].points.add(1).pow(0.5)
-                if (eff_u_11.gte(1500)) eff_u_11 = eff_u_11.pow(0.5).add(1499)
-                if (hasUpgrade('u', 32)) eff_u_11 = eff_u_11.pow(2).add(1)
-                if (hasUpgrade('u', 15)) eff_u_11 = eff_u_11.times(upgradeEffect('u', 15))
-                return eff_u_11
+                let eff = player[this.layer].points.add(1).pow(0.5)
+                if (eff.gte(1500)) eff = eff.pow(0.5).add(1499)
+                if (hasUpgrade('u', 32)) eff = eff.pow(2).add(1)
+                if (hasUpgrade('u', 15)) eff = eff.times(upgradeEffect('u', 15))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -91,9 +91,9 @@ addLayer("u", {
             description: "Points multiply their own generation.",
             cost: new Decimal(5),
             effect() {
-                let eff_u_12 = player.points.add(1).pow(0.1)
-                if (hasUpgrade('u', 15)) eff_u_12 = eff_u_12.times(upgradeEffect('u', 15))
-                return eff_u_12
+                let eff = player.points.add(1).pow(0.1)
+                if (hasUpgrade('u', 15)) eff = eff.times(upgradeEffect('u', 15))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -102,10 +102,10 @@ addLayer("u", {
             description: "Upgrade points multiply their own generation.",
             cost: new Decimal(10),
             effect() {
-                let eff_u_13 = player[this.layer].points.add(1).pow(0.125)
-                if (hasUpgrade('u', 33)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 33))
-                if (hasUpgrade('u', 15)) eff_u_13 = eff_u_13.times(upgradeEffect('u', 15))
-                return eff_u_13
+                let eff = player[this.layer].points.add(1).pow(0.125)
+                if (hasUpgrade('u', 33)) eff = eff.times(upgradeEffect('u', 33))
+                if (hasUpgrade('u', 15)) eff = eff.times(upgradeEffect('u', 15))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -121,9 +121,9 @@ addLayer("u", {
             cost: new Decimal(1e12),
             unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
             effect() {
-                let eff_u_15 = player.u.essence.add(1).log10().pow(0.2).add(1)
-                if (hasUpgrade('u', 41)) eff_u_15 = eff_u_15.times(upgradeEffect('u', 41))
-                return eff_u_15
+                let eff = player.u.essence.add(1).log10().pow(0.2).add(1)
+                if (hasUpgrade('u', 41)) eff = eff.times(upgradeEffect('u', 41))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -139,10 +139,10 @@ addLayer("u", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
-                let eff_u_22 = player.u.essence.add(1).log10().add(1)
-                if (hasUpgrade('u', 24)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 24))
-                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
-                return eff_u_22
+                let eff = player.u.essence.add(1).log10().add(1)
+                if (hasUpgrade('u', 24)) eff = eff.times(upgradeEffect('u', 24))
+                if (hasUpgrade('u', 41)) eff = eff.times(upgradeEffect('u', 41))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -152,9 +152,9 @@ addLayer("u", {
             cost: new Decimal(50),
             unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
-                let eff_u_23 = player.u.essence.add(1).log10().pow(0.5).add(1)
-                if (hasUpgrade('u', 41)) eff_u_23 = eff_u_23.times(upgradeEffect('u', 41))
-                return eff_u_23
+                let eff = player.u.essence.add(1).log10().pow(0.5).add(1)
+                if (hasUpgrade('u', 41)) eff = eff.times(upgradeEffect('u', 41))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -164,8 +164,8 @@ addLayer("u", {
             cost: new Decimal(1e22),
             unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 22) },
             effect() {
-                let eff_u_24 = player.b.points.add(1).pow(0.25).add(1)
-                return eff_u_24
+                let eff = player.b.points.add(1).pow(0.25).add(1)
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -175,9 +175,9 @@ addLayer("u", {
             cost: new Decimal(1e32),
             unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 22) },
             effect() {
-                let eff_u_25 = player.b.best.add(1).pow(0.5).add(1)
-                if (eff_u_25.gte(200)) eff_u_25 = eff_u_25.log(2).add(199)
-                return eff_u_25
+                let eff = player.b.best.add(1).pow(0.5).add(1)
+                if (eff.gte(200)) eff = eff.log(2).add(199)
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
         },
@@ -187,9 +187,9 @@ addLayer("u", {
             cost: new Decimal(1000000),
             unlocked() { return hasMilestone('m', 1) },
             effect() {
-                let eff_u_31 = player.u.essence.add(1).log10().pow(0.25).add(1)
-                if (hasUpgrade('u', 41)) eff_u_31 = eff_u_31.times(upgradeEffect('u', 41))
-                return eff_u_31
+                let eff = player.u.essence.add(1).log10().pow(0.25).add(1)
+                if (hasUpgrade('u', 41)) eff = eff.times(upgradeEffect('u', 41))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -200,13 +200,13 @@ addLayer("u", {
             unlocked() { return hasMilestone('m', 1) },
         },
         33: {
-            title: "Who needs UE?",
+            title: "UP mp?!",
             description: "<b>UP up!</b> is stronger based on your milestone progress.",
             cost: new Decimal(1e22),
             unlocked() { return hasMilestone('m', 1) },
             effect() {
-                let eff_u_33 = player.m.points.add(1)
-                return eff_u_33
+                let eff = player.m.points.add(1)
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -216,9 +216,9 @@ addLayer("u", {
             cost: new Decimal(1e80),
             unlocked() { return player.b.buyables[21].gte(3)&&hasMilestone("m", 1) },
             effect() {
-                let eff_u_34 = player.m.points.add(1).times(5)
-                if (eff_u_34.gte(350)) eff_u_34 = eff_u_34.pow(0.5).add(349)
-                return eff_u_34
+                let eff = player.m.points.add(1).times(5)
+                if (eff.gte(350)) eff = eff.pow(0.5).add(349)
+                return eff
             },
             effectDisplay() { return formatWhole(upgradeEffect(this.layer, this.id))+" free levels" },
         },
@@ -228,9 +228,9 @@ addLayer("u", {
             cost: new Decimal(1e90),
             unlocked() { return player.b.buyables[21].gte(3)&&hasMilestone("m", 1) },
             effect() {
-                let eff_u_35 = player.m.points.add(1).pow(0.5).add(1)
-                if (eff_u_35.gte(10)) eff_u_35 = eff_u_35.pow(0.5).add(9)
-                return eff_u_35
+                let eff = player.m.points.add(1).pow(0.5).add(1)
+                if (eff.gte(10)) eff = eff.pow(0.5).add(9)
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -240,9 +240,32 @@ addLayer("u", {
             cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
             effect() {
-                let eff_u_41 = player.u.compressence.add(1).log10().add(1)
-                if (eff_u_41.gte(1000)) eff_u_41 = eff_u_41.pow(1/3).add(999)
-                return eff_u_41
+                let eff = player.u.compressence.add(1).log10().add(1)
+                if (eff.gte(1000)) eff = eff.pow(1/3).add(999)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        42: {
+            title: "Do it UrCelf",
+            description: "Upgrade compressence directly multiplies point generation.",
+            cost: new Decimal(2e100),
+            unlocked() { return hasUpgrade("u", 41) && hasUpgrade("u", 13) },
+            effect() {
+                let eff = player.u.compressence.add(1).log(2).add(1)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        43: {
+            title: "UP, uc.",
+            description: "Upgrade compressence directly multiplies upgrade point generation.",
+            cost: new Decimal(5e100),
+            unlocked() { return hasUpgrade("u", 41) && hasUpgrade("u", 13) },
+            effect() {
+                let eff = player.u.essence.add(1).log10().pow(0.5).add(1)
+                if (hasUpgrade('u', 41)) eff = eff.times(upgradeEffect('u', 41))
+                return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
