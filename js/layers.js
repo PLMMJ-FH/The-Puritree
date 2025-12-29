@@ -215,7 +215,7 @@ addLayer("u", {
         },
         35: {
             title: "Dead memes",
-            description: "Speed Amplifiers now scale with milestone progress.",
+            description: "Speed Amplifiers now scale with milestone progress. (Softcap: 10x)",
             cost: new Decimal(1e100),
             unlocked() { return player.b.buyables[21].gte(3)&&hasMilestone("m", 1) },
             effect() {
