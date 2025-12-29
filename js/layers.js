@@ -232,9 +232,15 @@ addLayer("u", {
         },
         41: {
             title: "What did I say about puns?",
-            description: "Allows generation of upgrade compressence, based on the 5th root of your UE gain.",
-            cost: new Decimal(5),
+            description: "Allows generation of upgrade compressence, based on the 5th root of your UE gain.<br>UC multiplies effects that rely on UE. (Softcap: 1000x)",
+            cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
+            effect() {
+                let eff_u_41 = player.u.compressence.add(1).log(2).add(1)
+                if (eff_u_41.gte(1000)) eff_u_41 = eff_u_41.pow(1/3).add(999)
+                return eff_u_41
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 })
