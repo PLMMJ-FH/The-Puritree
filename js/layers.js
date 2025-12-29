@@ -282,7 +282,7 @@ addLayer("b", {
     baseAmount() {return player.points}, // Get the current amount of baseResource
     branches: ["u"],
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.25, // Prestige currency exponent
+    exponent: 0.2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (player.b.buyables[12].gte(1)) mult = mult.times(buyableEffect("b", 12));
@@ -345,7 +345,7 @@ addLayer("b", {
             unlocked() { return player.b.buyables[21].gte(1) }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(5)
-                base = base.times(x.add(1)).add(x).pow(3)
+                base = base.times(x.add(1)).add(x).pow(4)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
