@@ -8,6 +8,7 @@ addLayer("u", {
 		best: new Decimal(0),
 		total: new Decimal(0),
 		essence: new Decimal(0),
+        compressence: new Decimal(0),
     }},
     color: "#CFCFFF",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
@@ -17,22 +18,22 @@ addLayer("u", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
 	effBase() { // used to calculate buffs to the exponent of UE gain
-		let base = new Decimal(1.25)
+		let base = new Decimal(1.25);
 		return base;
 	},
 	effect() { // calculates UE gain
-        if (!hasUpgrade('u', 21)) return new Decimal(0)
-        let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0)
-        if (player.u.essence.gte(1e1000000000000)) eff = eff.log10().add(1)
-        if (hasUpgrade('u', 32)) eff = eff.pow(2)
+        if (!hasUpgrade('u', 21)) return new Decimal(0);
+        let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
+        if (player.u.essence.gte(1e1000000000000)) eff = eff.log10().add(1);
+        if (hasUpgrade('u', 32)) eff = eff.pow(2);
         return eff;
     },
 	effectDescription() { // text for UE gain
 		return "which are generating "+format(tmp.u.effect)+" upgrade essence per second."
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
-			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff))
-            if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.times(diff));
+			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
+            if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.pow(0.25).times(diff));
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
