@@ -284,16 +284,10 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         45: {
-            title: "BM Combo",
-            description: "Best buyabucks now grant free Speed Amplifier levels. (Softcap: 100 free levels)",
+            title: "Acceleration",
+            description: "1st milestone effect now applies to buyabucks at an increased power.",
             cost: new Decimal(1e125),
             unlocked() { return player.b.buyables[21].gte(4)&&hasMilestone("m", 3) },
-            effect() {
-                let eff = player.b.best.add(1).pow(1/3).add(1)
-                if (eff.gte(100)) eff = eff.log(2).add(99)
-                return eff
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
         },
     },
 })
@@ -385,7 +379,9 @@ addLayer("b", {
     exponent: 0.25, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        if (player.b.buyables[12].gte(1)) mult = mult.times(buyableEffect("b", 12));
+        if (player.b.buyables[12].gte(1)) mult = mult.times(buyableEffect("b", 12))
+        if ((hasUpgrade('u', 45))&&(!hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).pow(1.5)
+        if ((hasUpgrade('u', 45))&&(hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).times(upgradeEffect('u', 31)).pow(1.5)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -488,10 +484,7 @@ addLayer("b", {
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
-                if (!hasUpgrade('u', 45)) eff = eff.times(x).pow(0.5).add(1)
-                if (hasUpgrade('u', 45)) freex = freex.add(upgradeEffect("u", 45))
-                if (hasUpgrade('u', 45)) freex = freex.add(x)
-                if (hasUpgrade('u', 45)) eff = eff.times(freex).add(freex).pow(0.5).add(1)
+                eff = eff.times(x).pow(0.5).add(1)
                 if (hasUpgrade("u", 35)) eff = eff.times(upgradeEffect("u", 35))
                 if (eff.gte(50)) eff = eff.pow(0.25).add(49)
                 if (eff.gte(90)) eff = eff.times(0).add(90)
