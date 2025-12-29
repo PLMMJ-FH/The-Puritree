@@ -316,7 +316,10 @@ addLayer("b", {
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(2)
-                base = base.times(x.add(1)).pow(2)
+                base = base.times(x.add(1)).add(x).pow(2)
+                if (player.b.buyables[11].gte(500)) base = base.pow(2)
+                if (player.b.buyables[11].gte(1000)) base = base.pow(2)
+                if (player.b.buyables[11].gte(1500)) base = base.pow(2)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -325,12 +328,12 @@ addLayer("b", {
                 if (!hasUpgrade('u', 25)) eff = eff.times(x)
                 if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25))
                 if (hasUpgrade('u', 25)) freex = freex.add(x)
-                eff = eff.times(freex)
+                eff = eff.times(freex).add(freex)
                 if (player.b.buyables[22].gte(1)) eff = eff.pow(buyableEffect("b", 22))
                 eff = eff.pow(2).add(1)
                 return eff
             },
-            display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
+            display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks (scales more harshly every 500 purchases)<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -385,8 +388,8 @@ addLayer("b", {
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(10)
                 base = base.times(x.add(1).times(10)).add(x).pow(5)
-                if (!player.b.buyables[21].gte(1)) base = base.times(0.2)
-                if (player.b.buyables[21].gte(1)&&!player.b.buyables[21].gte(2)) base = base.times(0.4)
+                if (!player.b.buyables[21].gte(1)) base = base.times(0.1)
+                if (player.b.buyables[21].gte(1)&&!player.b.buyables[21].gte(2)) base = base.times(0.25)
                 return base
             },
             display() { return 'Unlocks 2 more upgrades and 1 more buyable per level. (levels 3 and 4 are currently unimplemented)<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 2"},
