@@ -236,7 +236,7 @@ addLayer("u", {
         },
         41: {
             title: "Essence vengeance",
-            description: "Allows generation of upgrade compressence based on your UE gain.<br>UC boosts UE effects. (Softcap: 1000x)",
+            description: "Allows generation of upgrade compressence based on UE gain. UC boosts UE effects. (Softcap: 1000x)",
             cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
             effect() {
