@@ -32,6 +32,7 @@ addLayer("u", {
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
 			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
+            if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.pow(0.25).times(diff));
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
@@ -53,11 +54,14 @@ addLayer("u", {
 				{}],
 		"blank",
 		["display-text",
-			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
+			function() {return 'Your best upgrade points is ' + formatWhole(player.u.best) + '.<br>You have made a total of '+formatWhole(player.u.total)+" upgrade points."},
 				{}],
 		"blank",
-		["display-text",
-			function() {return 'Your best upgrade points is ' + formatWhole(player.u.best) + '.<br>You have made a total of '+formatWhole(player.u.total)+" upgrade points."},
+        ["display-text",
+			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
+				{}],
+        ["display-text",
+			function() {return 'You have ' + format(player.u.compressence) + ' upgrade compressence, which serves to improve UE effects.'},
 				{}],
 		"blank",
         "upgrades"],
@@ -66,7 +70,7 @@ addLayer("u", {
         {key: "u", description: "U: Reset for upgrade points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-    passiveGeneration() { return (hasUpgrade("u", 14))?0.05:0 },
+    passiveGeneration() { return (hasUpgrade("u", 14))?0.1:0 },
     upgrades: {
         11: {
             title: "Upgrade Boost",
@@ -106,7 +110,7 @@ addLayer("u", {
         },
         14: {
             title: "Automagic",
-            description: "Gain 5% of the UP you would gain on reset every second.",
+            description: "Gain 10% of the UP you would gain on reset every second.",
             cost: new Decimal(100),
             unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
         },
@@ -225,6 +229,12 @@ addLayer("u", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
+        41: {
+            title: "Essence matters again!",
+            description: "Allows generation of upgrade compressence, based on the 4th root of your UE gain.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
+        },
     },
 })
 
@@ -286,6 +296,11 @@ addLayer("m", {
 			requirementDescription: "14 Milestone Progress",
 			done() { return player.m.best.gte(14) },
 			effectDescription: "You can buy max milestone progress.",
+		},
+		3: {
+			requirementDescription: "21 Milestone Progress",
+			done() { return player.m.best.gte(21) },
+			effectDescription: "Unlock row 4 upgrades.",
 		},
     },
 })
