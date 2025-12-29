@@ -446,11 +446,11 @@ addLayer("b", {
         },
         22: {
             title: "Point Super-Booster",
-            purchaseLimit: new Decimal(4),
+            purchaseLimit: new Decimal(6),
             unlocked() { return player.b.buyables[21].gte(2) }, 
             cost(x=player[this.layer].buyables[this.id]) { 
-                let base = new Decimal(5)
-                base = base.times(x.times(10)).add(x).pow(2.5)
+                let base = new Decimal(30)
+                base = base.times(x.times(10)).add(x).pow(4)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -459,7 +459,7 @@ addLayer("b", {
                 eff = eff.times(0.5).add(1)
                 return eff
             },
-            display() { return 'Raises Point Booster strength to a power based on its level.<br>Currently: ^' +  format(buyableEffect(this.layer, this.id)) + '<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 4"},
+            display() { return 'Raises Point Booster strength to a power based on its level.<br>Currently: ^' +  format(buyableEffect(this.layer, this.id)) + '<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 6"},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
