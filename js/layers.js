@@ -122,6 +122,7 @@ addLayer("u", {
             unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
             effect() {
                 let eff_u_15 = player.u.essence.add(1).log10().pow(0.2).add(1)
+                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
                 return eff_u_15
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -140,6 +141,7 @@ addLayer("u", {
             effect() {
                 let eff_u_22 = player.u.essence.add(1).log10().add(1)
                 if (hasUpgrade('u', 24)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 24))
+                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
                 return eff_u_22
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -151,6 +153,7 @@ addLayer("u", {
             unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
                 let eff_u_23 = player.u.essence.add(1).log10().pow(0.5).add(1)
+                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
                 return eff_u_23
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -185,6 +188,7 @@ addLayer("u", {
             unlocked() { return hasMilestone('m', 1) },
             effect() {
                 let eff_u_31 = player.u.essence.add(1).log10().pow(0.25).add(1)
+                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
                 return eff_u_31
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -236,7 +240,7 @@ addLayer("u", {
             cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
             effect() {
-                let eff_u_41 = player.u.compressence.add(1).log(2).add(1)
+                let eff_u_41 = player.u.compressence.add(1).log10().add(1)
                 if (eff_u_41.gte(1000)) eff_u_41 = eff_u_41.pow(1/3).add(999)
                 return eff_u_41
             },
