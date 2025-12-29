@@ -450,7 +450,7 @@ addLayer("b", {
             unlocked() { return player.b.buyables[21].gte(2) }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(30)
-                base = base.times(x.times(10)).add(x).pow(4)
+                base = base.times(x.add(1).times(10)).add(x).pow(4)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
