@@ -238,7 +238,7 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         41: {
-            title: "Essence vengeance",
+            title: "Essence Vengeance",
             description: "Allows generation of upgrade compressence based on UE gain. UC boosts UE effects. (Softcap: 1000x)",
             cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
@@ -284,10 +284,16 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         45: {
-            title: "Acceleration",
-            description: "1st milestone effect now applies to buyabucks at an increased power.",
+            title: "Return on Investment",
+            description: "Buyabuck gain is boosted based on the total of the first 3 row 1 buyables. (Softcap: 100x)",
             cost: new Decimal(1e125),
             unlocked() { return player.b.buyables[21].gte(4)&&hasMilestone("m", 3) },
+            effect() {
+                eff = player.b.buyables[11].add(player.b.buyables[12].add(player.b.buyables[13])).pow(0.5).add(1)
+                if (eff.gte(100)) eff = eff.pow(1/3).add(99)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 })
@@ -379,9 +385,10 @@ addLayer("b", {
     exponent: 0.25, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        u45 = player.b.buyables[11].add(player.b.buyables[12].add(player.b.buyables[13])).pow(0.5).add(1)
+        if (u45.gte(100)) u45 = u45.pow(1/3).add(99)
         if (player.b.buyables[12].gte(1)) mult = mult.times(buyableEffect("b", 12))
-        if ((hasUpgrade('u', 45))&&(!hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).pow(1.5)
-        if ((hasUpgrade('u', 45))&&(hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).times(upgradeEffect('u', 31)).pow(1.5)
+        if (hasUpgrade('u', 45)) mult = mult.times(u45)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
