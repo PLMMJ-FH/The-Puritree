@@ -33,7 +33,7 @@ addLayer("u", {
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
 			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
-            if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.pow(0.25).times(diff));
+            if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.pow(0.2).times(diff));
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
@@ -232,7 +232,7 @@ addLayer("u", {
         },
         41: {
             title: "What did I say about puns?",
-            description: "Allows generation of upgrade compressence, based on the 4th root of your UE gain.",
+            description: "Allows generation of upgrade compressence, based on the 5th root of your UE gain.",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
         },
