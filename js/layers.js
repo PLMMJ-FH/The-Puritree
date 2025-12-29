@@ -201,6 +201,30 @@ addLayer("u", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
+        34: {
+            title: "MB Combo",
+            description: "Milestone progress now grants free Work Generator levels. (Softcap: 350 free levels)",
+            cost: new Decimal(1e90),
+            unlocked() { return player.b.buyables[21].gte(3)&&hasMilestone("m", 1) },
+            effect() {
+                let eff_u_34 = player.m.points.add(1).times(5)
+                if (eff_u_34.gte(350)) eff_u_34 = eff_u_34.pow(0.5).add(349)
+                return eff_u_34
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
+        },
+        35: {
+            title: "Dead memes",
+            description: "Speed Amplifiers now scale with milestone progress.",
+            cost: new Decimal(1e100),
+            unlocked() { return player.b.buyables[21].gte(3)&&hasMilestone("m", 1) },
+            effect() {
+                let eff_u_35 = player.m.points.add(1).pow(0.5).add(1)
+                if (eff_u_35.gte(10)) eff_u_35 = eff_u_35.pow(0.5).add(9)
+                return eff_u_35
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
+        },
     },
 })
 
@@ -215,11 +239,11 @@ addLayer("m", {
 		points: new Decimal(0),
     }},
     color: "#793784",
-    requires() { return new Decimal(1e16).times((hasAchievement("a", 21)&&!player.m.unlocked)?1e34:1) },
+    requires() { return new Decimal(1e16).times((hasAchievement("a", 21)&&!player.m.unlocked)?1e44:1) },
     resource: "milestone progress", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
-    branches: ["u"],
+    branches: ["u", "b"],
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -276,11 +300,11 @@ addLayer("b", {
 		points: new Decimal(0),
     }},
     color: "#ffae00",
-    requires() { return new Decimal(1e16).times((hasAchievement("a", 21)&&!player.b.unlocked)?1e34:1) },
+    requires() { return new Decimal(1e16).times((hasAchievement("a", 21)&&!player.b.unlocked)?1e44:1) },
     resource: "buyabucks", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
-    branches: ["u"],
+    branches: ["u", "m"],
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -303,8 +327,9 @@ addLayer("b", {
 				{}],
 		"blank",
         "buyables",
+        "blank",
     	["display-text",
-			function() {return '(If you have a lot of buyables to buy, hold left click!)'},
+			function() {return 'Top row buyables are unlimited, but scale much more harshly every 500 purchases.<br>If you have a lot of buyables to buy, hold left click!'},
 				{}],],
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
@@ -323,6 +348,7 @@ addLayer("b", {
                 if (player.b.buyables[11].gte(500)) base = base.pow(2)
                 if (player.b.buyables[11].gte(1000)) base = base.pow(2)
                 if (player.b.buyables[11].gte(1500)) base = base.pow(2)
+                if (player.b.buyables[11].gte(2000)) base = base.pow(2)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -331,12 +357,12 @@ addLayer("b", {
                 if (!hasUpgrade('u', 25)) eff = eff.times(x)
                 if (hasUpgrade('u', 25)) freex = freex.add(upgradeEffect("u", 25))
                 if (hasUpgrade('u', 25)) freex = freex.add(x)
-                eff = eff.times(freex).add(freex)
+                if (hasUpgrade('u', 25)) eff = eff.times(freex).add(freex)
                 if (player.b.buyables[22].gte(1)) eff = eff.pow(buyableEffect("b", 22))
                 eff = eff.pow(2).add(1)
                 return eff
             },
-            display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks (scales more harshly every 500 purchases)<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
+            display() { return 'Multiplies point gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
@@ -349,11 +375,19 @@ addLayer("b", {
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(5)
                 base = base.times(x.add(1)).add(x).pow(4)
+                if (player.b.buyables[12].gte(500)) base = base.pow(2)
+                if (player.b.buyables[12].gte(1000)) base = base.pow(2)
+                if (player.b.buyables[12].gte(1500)) base = base.pow(2)
+                if (player.b.buyables[12].gte(2000)) base = base.pow(2)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
-                eff = eff.times(x)
+                let freex = new Decimal(1)
+                if (!hasUpgrade('u', 34)) eff = eff.times(x)
+                if (hasUpgrade('u', 34)) freex = freex.add(upgradeEffect("u", 34))
+                if (hasUpgrade('u', 34)) freex = freex.add(x)
+                if (hasUpgrade('u', 34)) eff = eff.times(freex).add(freex)
                 eff = eff.pow(1.25).add(1)
                 return eff
             },
@@ -364,17 +398,22 @@ addLayer("b", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
         },
-/*        13: {
+        13: {
             title: "Speed Amplifier",
             unlocked() { return player.b.buyables[21].gte(3) }, 
             cost(x=player[this.layer].buyables[this.id]) { 
-                let base = new Decimal(500)
+                let base = new Decimal(5000)
                 base = base.times(x.add(1)).add(x).pow(2.5)
+                if (player.b.buyables[13].gte(500)) base = base.pow(2)
+                if (player.b.buyables[13].gte(1000)) base = base.pow(2)
+                if (player.b.buyables[13].gte(1500)) base = base.pow(2)
+                if (player.b.buyables[13].gte(2000)) base = base.pow(2)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
-                eff = eff.times(x).pow(0.75).add(1)
+                eff = eff.times(x).pow(0.5).add(1)
+                if (hasUpgrade("u", 35)) eff = eff.times(upgradeEffect("u", 35))
                 return eff
             },
             display() { return 'Multiplies milestone progress gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
@@ -383,7 +422,7 @@ addLayer("b", {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
-        },*/
+        },
         21: {
             title: "R&D Lab",
             purchaseLimit: new Decimal(4),
@@ -395,7 +434,7 @@ addLayer("b", {
                 if (player.b.buyables[21].gte(1)&&!player.b.buyables[21].gte(2)) base = base.times(0.25)
                 return base
             },
-            display() { return 'Unlocks 2 more upgrades and 1 more buyable per level. (levels 3 and 4 are currently unimplemented)<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 2"},
+            display() { return 'Unlocks 2 more upgrades and 1 more buyable per level. Row 3 and 4 upgrades also require milestones. (level 4 is currently unimplemented)<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 3"},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
