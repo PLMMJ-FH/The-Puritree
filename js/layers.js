@@ -39,6 +39,7 @@ addLayer("u", {
         mult = new Decimal(1)
         if (hasUpgrade('u', 13)) mult = mult.times(upgradeEffect('u', 13))
         if (hasUpgrade("u", 23)) mult = mult.times(upgradeEffect("u", 23))
+        if (hasUpgrade("u", 43)) mult = mult.times(upgradeEffect("u", 43))
         if ((hasMilestone('m', 0))&&(!hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).times(0.5)
         if ((hasMilestone('m', 0))&&(hasUpgrade('u', 31))) mult = mult.times(player.m.best).add(1).times(upgradeEffect('u', 31))
         return mult
@@ -263,8 +264,7 @@ addLayer("u", {
             cost: new Decimal(5e100),
             unlocked() { return hasUpgrade("u", 41) && hasUpgrade("u", 13) },
             effect() {
-                let eff = player.u.essence.add(1).log10().pow(0.5).add(1)
-                if (hasUpgrade('u', 41)) eff = eff.times(upgradeEffect('u', 41))
+                let eff = player.u.essence.add(1).log(2).pow(0.5).add(1)
                 return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
