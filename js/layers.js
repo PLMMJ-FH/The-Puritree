@@ -62,7 +62,7 @@ addLayer("u", {
 			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
 				{}],
         ["display-text",
-			function() {return 'You have ' + format(player.u.compressence) + ' upgrade compressence, which serves to improve UE effects.'},
+			function() {return 'You have ' + format(player.u.compressence) + ' compressence, which serves to improve UE effects.'},
 				{}],
 		"blank",
         "upgrades"],
@@ -232,7 +232,7 @@ addLayer("u", {
         },
         41: {
             title: "What did I say about puns?",
-            description: "Allows generation of upgrade compressence, based on the 5th root of your UE gain.<br>UC multiplies effects that rely on UE. (Softcap: 1000x)",
+            description: "Allows generation of compressence based on your UE gain.<br>UC boosts UE effects. (Softcap: 1000x)",
             cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
             effect() {
