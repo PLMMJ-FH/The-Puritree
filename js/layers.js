@@ -204,7 +204,7 @@ addLayer("u", {
         34: {
             title: "MB Combo",
             description: "Milestone progress now grants free Work Generator levels. (Softcap: 350 free levels)",
-            cost: new Decimal(1e90),
+            cost: new Decimal(1e80),
             unlocked() { return player.b.buyables[21].gte(3)&&hasMilestone("m", 1) },
             effect() {
                 let eff_u_34 = player.m.points.add(1).times(5)
@@ -216,7 +216,7 @@ addLayer("u", {
         35: {
             title: "Dead memes",
             description: "Speed Amplifiers now scale with milestone progress. (Softcap: 10x)",
-            cost: new Decimal(1e100),
+            cost: new Decimal(1e90),
             unlocked() { return player.b.buyables[21].gte(3)&&hasMilestone("m", 1) },
             effect() {
                 let eff_u_35 = player.m.points.add(1).pow(0.5).add(1)
