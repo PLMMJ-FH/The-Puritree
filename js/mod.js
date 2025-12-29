@@ -13,11 +13,14 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3",
-	name: "The Bug-Bringing Buyables Update",
+	num: "0.4",
+	name: "The Fusion-flation Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.4: Fusion-flation</h3><br>
+		- Added content for when the player has both row 2 layers.<br>
+		- Added a third row of achievements.<br>
 	<h3>v0.3: Bug-Bringing Buyables</h3><br>
 		- Patched what must've been dozens of bugs across the development of the update.<br>
 		- Added Buyables.<br>
@@ -60,6 +63,7 @@ function getPointGen() {
 	if (hasUpgrade('u', 22)) gain = gain.times(upgradeEffect('u', 22))
 	if (hasAchievement('a', 15)) gain = gain.times(1.1)
 	if (hasAchievement('a', 25)) gain = gain.times(1.2)
+	if (hasAchievement('a', 35)) gain = gain.times(1.3)
 	if (player.b.buyables[11].gte(1)||hasUpgrade('u', 25)) gain = gain.times(buyableEffect("b", 11));
 
 	if (hasAchievement('a', 21)) gain = gain.add(1)

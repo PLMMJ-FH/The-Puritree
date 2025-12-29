@@ -389,7 +389,7 @@ addLayer("b", {
             purchaseLimit: new Decimal(4),
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
-                let base = new Decimal(10)
+                let base = new Decimal(25)
                 base = base.times(x.add(1).times(10)).add(x).pow(5)
                 if (!player.b.buyables[21].gte(1)) base = base.times(0.1)
                 if (player.b.buyables[21].gte(1)&&!player.b.buyables[21].gte(2)) base = base.times(0.25)
@@ -467,7 +467,7 @@ addLayer("a", {
 		    tooltip: "Achieve the other row 1 achievements. Reward: Gain 10% more points.",
         },
         21: {
-            name: "The second one is not so free.",
+            name: "New layers await!",
 		    done() { return player.m.points.gte(1)||player.b.points.gte(1) },
 		    tooltip: "Do your first row 2 reset. Reward: Double point generation, and get +1 point/sec independent of multipliers.",
         },
@@ -490,6 +490,31 @@ addLayer("a", {
             name: "Mechanic",
 		    done() { return hasAchievement('a', 21) && hasAchievement('a', 22) && hasAchievement('a', 23) && hasAchievement('a', 24) },
 		    tooltip: "Achieve the other row 2 achievements. Reward: Gain 20% more points.",
+        },
+        31: {
+            name: "Is this too much inflation?",
+		    done() { return player.m.points.gte(1)&&player.b.points.gte(1) },
+		    tooltip: "Have both row 2 layers unlocked at the same time.",
+        },
+        32: {
+            name: "I Own the World",
+		    done() { return player.b.points.gte(5e14) },
+		    tooltip: "Have more money than the entirety of Earth (assuming 1 buyabuck = 1 USD).",
+        },
+        33: {
+            name: "Marathon Medalist",
+		    done() { return player.m.points.gte(26) },
+		    tooltip: "Have 26 milestone progress.",
+        },
+        34: {
+            name: "Upgrade all the way!",
+		    done() { return player.u.upgrades.length>=13 },
+		    tooltip: "Have 13 upgrades at once.",
+        },
+        35: {
+            name: "Millionaire Athlete",
+		    done() { return hasAchievement('a', 31) && hasAchievement('a', 32) && hasAchievement('a', 33) && hasAchievement('a', 34) },
+		    tooltip: "Achieve the other row 3 achievements. Reward: Gain 30% more points.",
         },
     },
 	tabFormat: [
