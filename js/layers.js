@@ -358,6 +358,26 @@ addLayer("b", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
         },
+/*        13: {
+            title: "Speed Amplifier",
+            unlocked() { return player.b.buyables[21].gte(3) }, 
+            cost(x=player[this.layer].buyables[this.id]) { 
+                let base = new Decimal(500)
+                base = base.times(x.add(1)).add(x).pow(2.5)
+                return base
+            },
+            effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
+                let eff = new Decimal(1)
+                eff = eff.times(x).pow(0.75).add(1)
+                return eff
+            },
+            display() { return 'Multiplies milestone progress gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },*/
         21: {
             title: "R&D Lab",
             purchaseLimit: new Decimal(4),
