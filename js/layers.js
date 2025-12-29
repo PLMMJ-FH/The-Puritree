@@ -231,7 +231,7 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         41: {
-            title: "What did I say about puns?",
+            title: "Essence vengeance",
             description: "Allows generation of compressence based on your UE gain.<br>UC boosts UE effects. (Softcap: 1000x)",
             cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
