@@ -338,7 +338,7 @@ addLayer("b", {
     layerShown(){return hasAchievement('a', 13)},
     buyables: {
     	rows: 2,
-		cols: 2,
+		cols: 3,
         11: {
             title: "Point Booster",
             unlocked() { return player[this.layer].unlocked }, 
