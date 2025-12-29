@@ -21,8 +21,8 @@ addLayer("u", {
 		return base;
 	},
 	effect() { // calculates UE gain
-        if (!hasUpgrade('u', 21)) return new Decimal(0);
-        let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0);
+        if (!hasUpgrade('u', 21)) return new Decimal(0)
+        let eff = Decimal.pow(this.effBase(), player.u.points).sub(1).max(0)
         if (player.u.essence.gte(1e1000000000000)) eff = eff.log10().add(1)
         if (hasUpgrade('u', 32)) eff = eff.pow(2)
         return eff;
@@ -31,7 +31,7 @@ addLayer("u", {
 		return "which are generating "+format(tmp.u.effect)+" upgrade essence per second."
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
-			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff));
+			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff))
             if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.pow(0.25).times(diff));
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -230,7 +230,7 @@ addLayer("u", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         41: {
-            title: "Essence matters again!",
+            title: "What did I say about puns?",
             description: "Allows generation of upgrade compressence, based on the 4th root of your UE gain.",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
