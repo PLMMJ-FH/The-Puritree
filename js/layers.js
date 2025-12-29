@@ -211,7 +211,7 @@ addLayer("u", {
                 if (eff_u_34.gte(350)) eff_u_34 = eff_u_34.pow(0.5).add(349)
                 return eff_u_34
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
+            effectDisplay() { return formatWhole(upgradeEffect(this.layer, this.id))+" free levels" },
         },
         35: {
             title: "Dead memes",
