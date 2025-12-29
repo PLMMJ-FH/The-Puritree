@@ -273,11 +273,12 @@ addLayer("u", {
         },
         44: {
             title: "Essence of Greed",
-            description: "<b>The Rich Get Richer</b> and <b>BB Combo</b> are boosted by your upgrade compressence.",
+            description: "<b>The Rich Get Richer</b> and <b>BB Combo</b> are boosted by your upgrade essence.",
             cost: new Decimal(1e120),
             unlocked() { return player.b.buyables[21].gte(4)&&hasMilestone("m", 3) },
             effect() {
-                let eff = player.u.compressence.add(1).log10().pow(0.75).add(1)
+                let eff = player.u.essence.add(1).log10().log10().add(1)
+                if (hasUpgrade('u', 41)) eff = eff.times(upgradeEffect('u', 41))
                 return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
