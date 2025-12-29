@@ -17,7 +17,7 @@ addLayer("u", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
 	effBase() { // used to calculate buffs to the exponent of UE gain
-		let base = new Decimal(1.25);
+		let base = new Decimal(1.25)
 		return base;
 	},
 	effect() { // calculates UE gain
@@ -32,7 +32,7 @@ addLayer("u", {
     }, 
     update(diff) { // UE gain, it has no inherent effects so no need for those calcs I hope
 			if (player.u.unlocked) player.u.essence = player.u.essence.plus(tmp.u.effect.times(diff))
-            if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.pow(0.25).times(diff));
+            if (hasUpgrade("u", 41)) player.u.compressence = player.u.compressence.plus(tmp.u.effect.times(diff));
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
