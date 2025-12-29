@@ -432,8 +432,8 @@ addLayer("b", {
             unlocked() { return player[this.layer].unlocked }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(10)
-                base = base.times(x.add(1).times(10)).add(x).pow(5)
-                if (!player.b.buyables[21].gte(1)) base = base.times(0.1)
+                if (!player.b.buyables[21].gte(1)) base = base.times(x.add(1).times(10)).add(x).pow(3)
+                if (player.b.buyables[21].gte(1)) base = base.times(x.add(1).times(10)).add(x).pow(4.5)
                 if (player.b.buyables[21].gte(1)&&!player.b.buyables[21].gte(2)) base = base.times(0.25)
                 return base
             },
