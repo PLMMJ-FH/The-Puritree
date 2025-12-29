@@ -62,7 +62,7 @@ addLayer("u", {
 			function() {return 'You have ' + format(player.u.essence) + ' upgrade essence, which serves to improve certain upgrades.'},
 				{}],
         ["display-text",
-			function() {return 'You have ' + format(player.u.compressence) + ' compressence, which serves to improve UE effects.'},
+			function() {return 'You have ' + format(player.u.compressence) + ' upgrade compressence, which serves to improve UE effects.'},
 				{}],
 		"blank",
         "upgrades"],
@@ -122,7 +122,7 @@ addLayer("u", {
             unlocked() { return player.b.buyables[21].gte(1)&&hasUpgrade("u", 13) },
             effect() {
                 let eff_u_15 = player.u.essence.add(1).log10().pow(0.2).add(1)
-                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
+                if (hasUpgrade('u', 41)) eff_u_15 = eff_u_15.times(upgradeEffect('u', 41))
                 return eff_u_15
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -153,7 +153,7 @@ addLayer("u", {
             unlocked() { return hasUpgrade("u", 12) && hasUpgrade("u", 13) },
             effect() {
                 let eff_u_23 = player.u.essence.add(1).log10().pow(0.5).add(1)
-                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
+                if (hasUpgrade('u', 41)) eff_u_23 = eff_u_23.times(upgradeEffect('u', 41))
                 return eff_u_23
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -188,7 +188,7 @@ addLayer("u", {
             unlocked() { return hasMilestone('m', 1) },
             effect() {
                 let eff_u_31 = player.u.essence.add(1).log10().pow(0.25).add(1)
-                if (hasUpgrade('u', 41)) eff_u_22 = eff_u_22.times(upgradeEffect('u', 41))
+                if (hasUpgrade('u', 41)) eff_u_31 = eff_u_31.times(upgradeEffect('u', 41))
                 return eff_u_31
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -236,7 +236,7 @@ addLayer("u", {
         },
         41: {
             title: "Essence vengeance",
-            description: "Allows generation of compressence based on your UE gain.<br>UC boosts UE effects. (Softcap: 1000x)",
+            description: "Allows generation of upgrade compressence based on your UE gain.<br>UC boosts UE effects. (Softcap: 1000x)",
             cost: new Decimal(5e90),
             unlocked() { return hasUpgrade("u", 21)&&hasMilestone("m", 3) },
             effect() {
