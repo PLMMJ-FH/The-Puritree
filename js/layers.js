@@ -248,7 +248,7 @@ addLayer("m", {
     exponent: 2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        if (player.b.buyables[13].gte(1)) mult = mult.times(buyableEffect("b", 13))
+        if (player.b.buyables[13].gte(1)) mult = mult.sub(buyableEffect("b", 13).times(0.01))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -415,9 +415,11 @@ addLayer("b", {
                 let eff = new Decimal(1)
                 eff = eff.times(x).pow(0.5).add(1)
                 if (hasUpgrade("u", 35)) eff = eff.times(upgradeEffect("u", 35))
+                if (eff.gte(50)) eff = eff.pow(0.25).add(49)
+                if (eff.gte(90)) eff = eff.times(0).add(90)
                 return eff
             },
-            display() { return 'Multiplies milestone progress gain.<br>Currently: ' +  format(buyableEffect(this.layer, this.id)) + 'x<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
+            display() { return 'Reduces milestone progress scaling.<br>Currently: -' +  format(buyableEffect(this.layer, this.id)) + '% (Softcap: 50%, hardcap: 90%)<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks' + '<br>Level: ' + formatWhole(player[this.layer].buyables[this.id])},
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
