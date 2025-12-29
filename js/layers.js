@@ -347,9 +347,9 @@ addLayer("b", {
                 let base = new Decimal(2)
                 base = base.times(x.add(1)).pow(2)
                 if (player.b.buyables[11].gte(500)) base = base.pow(2)
-                if (player.b.buyables[11].gte(1000)) base = base.pow(2)
-                if (player.b.buyables[11].gte(1500)) base = base.pow(2)
-                if (player.b.buyables[11].gte(2000)) base = base.pow(2)
+                if (player.b.buyables[11].gte(1000)) base = base.pow(3)
+                if (player.b.buyables[11].gte(1500)) base = base.pow(4)
+                if (player.b.buyables[11].gte(2000)) base = base.pow(5)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -377,9 +377,9 @@ addLayer("b", {
                 let base = new Decimal(5)
                 base = base.times(x.add(1)).add(x).pow(4)
                 if (player.b.buyables[12].gte(500)) base = base.pow(2)
-                if (player.b.buyables[12].gte(1000)) base = base.pow(2)
-                if (player.b.buyables[12].gte(1500)) base = base.pow(2)
-                if (player.b.buyables[12].gte(2000)) base = base.pow(2)
+                if (player.b.buyables[12].gte(1000)) base = base.pow(3)
+                if (player.b.buyables[12].gte(1500)) base = base.pow(4)
+                if (player.b.buyables[12].gte(2000)) base = base.pow(5)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
@@ -404,11 +404,11 @@ addLayer("b", {
             unlocked() { return player.b.buyables[21].gte(3) }, 
             cost(x=player[this.layer].buyables[this.id]) { 
                 let base = new Decimal(5000)
-                base = base.times(x.add(1)).add(x).pow(3.5)
+                base = base.times(x.add(1)).add(x).pow(4.5)
                 if (player.b.buyables[13].gte(500)) base = base.pow(2)
-                if (player.b.buyables[13].gte(1000)) base = base.pow(2)
-                if (player.b.buyables[13].gte(1500)) base = base.pow(2)
-                if (player.b.buyables[13].gte(2000)) base = base.pow(2)
+                if (player.b.buyables[13].gte(1000)) base = base.pow(3)
+                if (player.b.buyables[13].gte(1500)) base = base.pow(4)
+                if (player.b.buyables[13].gte(2000)) base = base.pow(5)
                 return base
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
