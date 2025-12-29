@@ -223,7 +223,7 @@ addLayer("u", {
                 if (eff_u_35.gte(10)) eff_u_35 = eff_u_35.pow(0.5).add(9)
                 return eff_u_35
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 })
