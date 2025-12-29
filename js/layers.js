@@ -302,7 +302,10 @@ addLayer("b", {
 			function() {return 'Your best buyabucks is ' + formatWhole(player.b.best) + '.<br>You have made a total of '+formatWhole(player.b.total)+" buyabucks."},
 				{}],
 		"blank",
-        "buyables"],
+        "buyables",
+    	["display-text",
+			function() {return '(If you have a lot of buyables to buy, hold left click!)'},
+				{}],],
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "b", description: "B: Reset for buyabucks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
