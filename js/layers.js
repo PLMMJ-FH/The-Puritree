@@ -434,7 +434,7 @@ addLayer("b", {
                 let base = new Decimal(10)
                 if (!player.b.buyables[21].gte(1)) base = base.times(x.add(1).times(10)).add(x).pow(3)
                 if (player.b.buyables[21].gte(1)) base = base.times(x.add(1).times(10)).add(x).pow(4)
-                if (!player.b.buyables[21].gte(2)) base = base.times(0.25)
+                if (!player.b.buyables[21].gte(2)) base = base.times(0.1)
                 return base
             },
             display() { return 'Unlocks 2 more upgrades and 1 more buyable per level. Row 3 and 4 upgrades also require milestones. (level 4 is currently unimplemented)<br>Cost: ' + formatWhole(this.cost()) + ' buyabucks<br>Level: ' + formatWhole(player[this.layer].buyables[this.id]) +" / 3"},
