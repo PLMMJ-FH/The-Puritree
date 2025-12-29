@@ -166,6 +166,7 @@ addLayer("u", {
             unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 22) },
             effect() {
                 let eff = player.b.points.add(1).pow(0.25).add(1)
+                if (hasUpgrade('u', 44)) eff = eff.times(upgradeEffect('u', 44))
                 return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
@@ -177,6 +178,7 @@ addLayer("u", {
             unlocked() { return player.b.buyables[21].gte(2)&&hasUpgrade("u", 22) },
             effect() {
                 let eff = player.b.best.add(1).pow(0.5).add(1)
+                if (hasUpgrade('u', 44)) eff = eff.times(upgradeEffect('u', 44))
                 if (eff.gte(200)) eff = eff.log(2).add(199)
                 return eff
             },
@@ -268,6 +270,29 @@ addLayer("u", {
                 return eff
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        44: {
+            title: "Essence of Greed",
+            description: "<b>The Rich Get Richer</b> and <b>BB Combo</b> are boosted by your upgrade compressence.",
+            cost: new Decimal(1e120),
+            unlocked() { return player.b.buyables[21].gte(4)&&hasMilestone("m", 3) },
+            effect() {
+                let eff = player.u.compressence.add(1).log10().pow(0.75).add(1)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        45: {
+            title: "BM Combo",
+            description: "Best buyabucks now grant free Speed Amplifier levels. (Softcap: 100 free levels)",
+            cost: new Decimal(1e125),
+            unlocked() { return player.b.buyables[21].gte(4)&&hasMilestone("m", 3) },
+            effect() {
+                let eff = player.b.best.add(1).pow(1/3).add(1)
+                if (eff.gte(100)) eff = eff.log(2).add(99)
+                return eff
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+" free levels" },
         },
     },
 })
@@ -462,7 +487,10 @@ addLayer("b", {
             },
             effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
                 let eff = new Decimal(1)
-                eff = eff.times(x).pow(0.5).add(1)
+                if (!hasUpgrade('u', 45)) eff = eff.times(x).pow(0.5).add(1)
+                if (hasUpgrade('u', 45)) freex = freex.add(upgradeEffect("u", 45))
+                if (hasUpgrade('u', 45)) freex = freex.add(x)
+                if (hasUpgrade('u', 45)) eff = eff.times(freex).add(freex).pow(0.5).add(1)
                 if (hasUpgrade("u", 35)) eff = eff.times(upgradeEffect("u", 35))
                 if (eff.gte(50)) eff = eff.pow(0.25).add(49)
                 if (eff.gte(90)) eff = eff.times(0).add(90)
