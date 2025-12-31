@@ -36,7 +36,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Dealt with mod.js.<br>
 		- Added Upgrades.<br>`
 
-let winText = `Congratulations! You have reached the end of the 4-layer version. 5 more layers await in future updates...<br>Ignore what it says about Discord. I don't know how to get rid of that.`
+let winText = `Congratulations! You have reached the end of the 4-layer version. 3 more layers await in future updates...<br>Ignore what it says about Discord. I don't know how to get rid of that.`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
